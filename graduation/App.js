@@ -13,21 +13,64 @@ import { Router, Scene,Tabs } from 'react-native-router-flux';
 import find from './src/findPage/find';
 import home from './src/HomePage/home';
 import share from './src/SharePage/share';
-import user from './src/userPage/user'
+import user from './src/userPage/user';
+
+import {Icon} from '@ant-design/react-native'
+
 const App = () => {
   return (
     <Router>
       <Scene key="root">
-        <Tabs>
+        <Tabs
+          hideNavBar
+          activeTintColor="#91ABEC"
+          inactiveTintColor="black"
+        >
           <Scene 
             key="one" 
             component={home} 
             initial={true}
             title="首页" 
+            icon={
+              ({focused})=><Icon
+                color={focused?'#91ABEC':'black'}
+                name='home'
+              />
+            } 
           />
-          <Scene key="two" component={find} title="发现"/>
-          <Scene key="three" component={share} title="分享" />
-          <Scene key="four" component={user} title="我的" />
+          <Scene 
+            key="two" 
+            component={find} 
+            title="发现"
+            icon={
+              ({focused})=><Icon
+                color={focused?'#91ABEC':'black'}
+                name='eye'
+              />
+            } 
+          />
+          <Scene 
+            key="three" 
+            component={share} 
+            title="分享" 
+            icon={
+              ({focused})=><Icon
+                color={focused?'#91ABEC':'black'}
+                name='select'
+              />
+            } 
+          />
+          <Scene 
+            key="four" 
+            component={user} 
+            title="我的" 
+            icon={
+              ({focused})=><Icon
+                color={focused?'#91ABEC':'black'}
+                name='user'
+              />
+            } 
+          />
         </Tabs>
         
       </Scene>
