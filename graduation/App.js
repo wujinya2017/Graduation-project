@@ -6,14 +6,16 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar} from 'react-native';
-import { Router, Scene,Tabs } from 'react-native-router-flux';
+import React,{useState,useEffect} from 'react';
+import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,TouchableOpacity} from 'react-native';
+import { Actions, Router, Scene,Tabs } from 'react-native-router-flux';
 
 import find from './src/findPage/find';
 import home from './src/HomePage/home';
 import share from './src/SharePage/share';
 import user from './src/userPage/user';
+import clock from './src/HomePage/clock';
+
 
 import {Icon} from '@ant-design/react-native'
 
@@ -28,7 +30,6 @@ const App = () => {
         >
           <Scene 
             key="one" 
-            component={home} 
             initial={true}
             title="首页" 
             icon={
@@ -37,7 +38,41 @@ const App = () => {
                 name='home'
               />
             } 
-          />
+          >
+            <Scene 
+              key='shouye'
+              component={home}
+              title="成长之路"
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+							renderLeftButton={
+								<TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.daka()}>
+                  <Icon name='carry-out' style={{color:'black'}}/>
+                </TouchableOpacity>
+							}
+							titleStyle={{ flex: 1, textAlign: 'center'}}
+							renderRightButton={
+								<View style={{marginRight:10,flexDirection:'row'}}>
+                  <Icon name='search' style={{color:'black',marginRight:10}}/>
+                  <Icon name='mail' style={{color:'black'}}/>
+                </View>
+							}
+            />
+            <Scene
+              key='daka'
+              component={clock}
+              title='成长日历'
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+							renderLeftButton={
+								<TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                  <Icon name='left' style={{color:'black'}}/>
+                </TouchableOpacity>
+							}
+							titleStyle={{ flex: 1, textAlign: 'center'}}
+							renderRightButton={
+								<View style={{marginRight:10}}></View>
+							}
+            />
+          </Scene>
           <Scene 
             key="two" 
             component={find} 
