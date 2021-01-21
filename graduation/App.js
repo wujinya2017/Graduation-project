@@ -99,6 +99,8 @@ const App = () => {
             key="four" 
             component={user} 
             title="我的" 
+            titleStyle={{ color: 'white', flex: 1, textAlign: 'center', marginLeft: -30 }}
+            navigationBarStyle={{ backgroundColor: 'red' }}
             icon={
               ({focused})=><Icon
                 color={focused?'#91ABEC':'black'}
