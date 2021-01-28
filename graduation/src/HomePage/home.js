@@ -1,6 +1,7 @@
 import { Icon } from '@ant-design/react-native';
 import React, { Component } from 'react'
-import {View, Text, ScrollView, Image, Dimensions, StyleSheet} from 'react-native';
+import {View, Text, ScrollView, Image, Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import Swiper from 'react-native-swiper';
 
@@ -30,7 +31,7 @@ export default class home extends Component {
                 <View style={{padding:10*s}}>
                     <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                         <Text style={{fontSize:26*s}}>今日目标</Text>
-                        <Icon name='plus' style={{color:'black'}}/>
+                        <TouchableOpacity onPress={()=>Actions.addplus()}><Icon name='plus' style={{color:'black'}}/></TouchableOpacity>
                     </View>
                     <View style={{alignItems:'center'}}>
                         <View style={styles.textview}>
@@ -55,13 +56,13 @@ export default class home extends Component {
                         </View>
                         <Image style={styles.secondimg} source={require('../../assets/7.gif')}/>
                     </View>
-                    <View style={styles.firstview}>
+                    <TouchableOpacity style={styles.firstview} onPress={()=>Actions.growplan()}>
                         <View>
                             <Text style={{fontSize:30*s}}>成长计划</Text>
                             <Text>脚踩西瓜皮，滑到哪里算哪里？</Text>
                         </View>
                         <Image style={styles.secondimg} source={require('../../assets/4.gif')}/>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 
             </ScrollView>

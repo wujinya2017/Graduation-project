@@ -32,6 +32,10 @@ import fensi from './src/userPage/fensi';
 import guanzhu from './src/userPage/guanzhu';
 import chuangzuo from './src/userPage/chuangzuo';
 import future from './src/userPage/future'
+import notice from './src/HomePage/notice';
+import noticedetails from './src/HomePage/noticedetails';
+import addplus from './src/HomePage/addplus';
+import growplan from './src/HomePage/growplan';
 
 const App = () => {
   return (
@@ -67,7 +71,7 @@ const App = () => {
 							renderRightButton={
 								<View style={{marginRight:10,flexDirection:'row'}}>
                   <Icon name='search' style={{color:'black',marginRight:10}}/>
-                  <Icon name='mail' style={{color:'black'}}/>
+                  <TouchableOpacity onPress={()=>Actions.notice()}><Icon name='mail' style={{color:'black'}}/></TouchableOpacity>
                 </View>
 							}
             />
@@ -85,6 +89,70 @@ const App = () => {
 							renderRightButton={
 								<View style={{marginRight:10}}></View>
 							}
+            />
+            <Scene
+              key='notice'
+              hideTabBar
+              component={notice}
+              title='通知'
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+              renderLeftButton={
+                <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                  <Icon name='left' style={{color:'black'}}/>
+                </TouchableOpacity>
+              }
+              titleStyle={{ flex: 1, textAlign: 'center'}}
+              renderRightButton={
+                <View style={{marginRight:10}}></View>
+              }
+            />
+            <Scene
+              key='noticedetails'
+              hideTabBar
+              component={noticedetails}
+              title='通知'
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+              renderLeftButton={
+                <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                  <Icon name='left' style={{color:'black'}}/>
+                </TouchableOpacity>
+              }
+              titleStyle={{ flex: 1, textAlign: 'center'}}
+              renderRightButton={
+                <View style={{marginRight:10}}></View>
+              }
+            />
+            <Scene
+              key='addplus'
+              hideTabBar
+              component={addplus}
+              title='设置目标'
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+              renderLeftButton={
+                <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                  <Icon name='left' style={{color:'black'}}/>
+                </TouchableOpacity>
+              }
+              titleStyle={{ flex: 1, textAlign: 'center'}}
+              renderRightButton={
+                <View style={{marginRight:10}}></View>
+              }
+            />
+            <Scene
+              key='growplan'
+              hideTabBar
+              component={growplan}
+              title='成长计划'
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+              renderLeftButton={
+                <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                  <Icon name='left' style={{color:'black'}}/>
+                </TouchableOpacity>
+              }
+              titleStyle={{ flex: 1, textAlign: 'center'}}
+              renderRightButton={
+                <View style={{marginRight:10}}></View>
+              }
             />
           </Scene>
           <Scene 
