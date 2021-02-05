@@ -157,7 +157,6 @@ const App = () => {
           </Scene>
           <Scene 
             key="two" 
-            component={find} 
             title="发现"
             icon={
               ({focused})=><Icon
@@ -165,10 +164,17 @@ const App = () => {
                 name='eye'
               />
             } 
-          />
+          >
+            <Scene 
+              key='faxian'
+              component={find}
+              title="发现"
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+							titleStyle={{ flex: 1, textAlign: 'center'}}
+            />
+          </Scene>
           <Scene 
             key="three" 
-            component={share} 
             title="分享" 
             icon={
               ({focused})=><Icon
@@ -176,7 +182,16 @@ const App = () => {
                 name='select'
               />
             } 
-          />
+          >
+            <Scene 
+              key='fenxiang'
+              component={share}
+              title="分享"
+              navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+							titleStyle={{ flex: 1, textAlign: 'center'}}
+            />
+          </Scene>
+
           <Scene 
             key="four" 
             title="我的" 

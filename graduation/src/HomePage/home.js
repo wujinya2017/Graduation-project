@@ -11,7 +11,7 @@ export default class home extends Component {
     render() {
         return (
             <ScrollView>
-                <Swiper style={{height:300*s}}>
+                <Swiper autoplay='true' style={{height:300*s}}>
                     <View>
                         <Image style={styles.img} source={require('../../assets/6.jpg')}/>
                     </View>
