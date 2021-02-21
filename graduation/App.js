@@ -36,6 +36,7 @@ import notice from './src/HomePage/notice';
 import noticedetails from './src/HomePage/noticedetails';
 import addplus from './src/HomePage/addplus';
 import growplan from './src/HomePage/growplan';
+import search from './src/HomePage/search';
 
 const App = () => {
   return (
@@ -70,7 +71,7 @@ const App = () => {
 							titleStyle={{ flex: 1, textAlign: 'center'}}
 							renderRightButton={
 								<View style={{marginRight:10,flexDirection:'row'}}>
-                  <Icon name='search' style={{color:'black',marginRight:10}}/>
+                  <TouchableOpacity onPress={()=>Actions.search()}><Icon name='search' style={{color:'black',marginRight:10}}/></TouchableOpacity>
                   <TouchableOpacity onPress={()=>Actions.notice()}><Icon name='mail' style={{color:'black'}}/></TouchableOpacity>
                 </View>
 							}
@@ -153,6 +154,13 @@ const App = () => {
               renderRightButton={
                 <View style={{marginRight:10}}></View>
               }
+            />
+            <Scene
+              key='search'
+              hideTabBar
+              hideNavBar
+              component={search}
+              title='搜索'
             />
           </Scene>
           <Scene 
