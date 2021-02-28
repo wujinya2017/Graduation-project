@@ -37,6 +37,10 @@ import noticedetails from './src/HomePage/noticedetails';
 import addplus from './src/HomePage/addplus';
 import growplan from './src/HomePage/growplan';
 import search from './src/HomePage/search';
+import anquan from './src/userPage/anquan';
+import tongyong from './src/userPage/tongyong';
+import yinsi from './src/userPage/yinsi';
+import message from './src/userPage/message';
 
 const App = () => {
   return (
@@ -238,6 +242,54 @@ const App = () => {
               <View style={{marginRight:10}}></View>
             }
           />
+          <Scene key='anquan'
+                  component={anquan}
+                  title="账号与安全"
+                  navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                  titleStyle={{ flex: 1, textAlign: 'center'}}
+                  renderLeftButton={
+                    <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                      <Icon name='left' style={{color:'black'}}/>
+                    </TouchableOpacity>
+                  }
+                
+           ></Scene>
+              <Scene key='tongyong'
+                  component={tongyong}
+                  title="通用"
+                  navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                  titleStyle={{ flex: 1, textAlign: 'center'}}
+                  renderLeftButton={
+                    <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                      <Icon name='left' style={{color:'black'}}/>
+                    </TouchableOpacity>
+                  }
+                
+           ></Scene>
+              <Scene key='yinsi'
+                  component={yinsi}
+                  title="隐私"
+                  navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                  titleStyle={{ flex: 1, textAlign: 'center'}}
+                  renderLeftButton={
+                    <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                      <Icon name='left' style={{color:'black'}}/>
+                    </TouchableOpacity>
+                  }
+                
+           ></Scene>
+              <Scene key='message'
+                  component={message}
+                  title="个人信息"
+                  navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                  titleStyle={{ flex: 1, textAlign: 'center'}}
+                  renderLeftButton={
+                    <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                      <Icon name='left' style={{color:'black'}}/>
+                    </TouchableOpacity>
+                  }
+                
+           ></Scene>
          <Scene key='motto'
                   component={motto}
                   title="编辑座右铭"
