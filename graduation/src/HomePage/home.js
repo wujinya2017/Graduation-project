@@ -13,7 +13,7 @@ export default class home extends Component {
             <ScrollView>
                 <Swiper autoplay='true' style={{height:300*s}}>
                     <View>
-                        <Image style={styles.img} source={require('../../assets/6.jpg')}/>
+                        <TouchableOpacity ><Image style={styles.img} source={require('../../assets/6.jpg')}/></TouchableOpacity>
                     </View>
                     <View>
                         <Image style={styles.img} source={require('../../assets/12.jpg')}/>
