@@ -47,6 +47,7 @@ import Login from './src/common/Login'
 import Logon from "./src/common/Logon";
 import SwiperPage from './src/common/SwiperPage'
 import misspassword from './src/common/misspassword';
+import jihua from './src/userPage/jihua';
 
 const App = () => {
   let [isLogin,setLogin] = useState(false);
@@ -367,7 +368,6 @@ const App = () => {
                           <Icon name='left' style={{color:'black'}}/>
                         </TouchableOpacity>
                       }
-                    
               ></Scene>
             <Scene key='motto'
                       component={motto}
@@ -436,6 +436,18 @@ const App = () => {
               <Scene key='future'
                       component={future}
                       title="我的未来"
+                      navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                      titleStyle={{ flex: 1, textAlign: 'center'}}
+                      renderLeftButton={
+                        <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+                          <Icon name='left' style={{color:'black'}}/>
+                        </TouchableOpacity>
+                      }
+                    
+              ></Scene>
+               <Scene key='jihua'
+                      component={jihua}
+                      title="my future"
                       navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
                       titleStyle={{ flex: 1, textAlign: 'center'}}
                       renderLeftButton={

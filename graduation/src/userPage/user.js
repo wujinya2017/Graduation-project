@@ -63,7 +63,7 @@ export default class user extends Component {
                                 <View style={{ flexDirection: 'row' }}>
                                     <View><Icon name='man'></Icon></View>
                                     <View style={{ marginLeft: 20 }}><Text>21</Text></View>
-                                    <View style={{ marginLeft: 20 }}><Icon name='mail'></Icon></View>
+                                    <View style={{ marginLeft: 20 }}><Text>双子</Text></View>
                                 </View>
                                 <View style={{ width: '60%', height: 58, marginTop: 4, flexDirection: 'row' }}>
                                     <TouchableOpacity style={styles.kuang} onPress={()=>Actions.chuangzuo()}>
