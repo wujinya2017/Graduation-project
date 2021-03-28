@@ -147,9 +147,9 @@ export default class message extends Component {
                         >{this.state.wsex}</TextInput>
                     </View>
                     <View style={styles.listcontent}>
-                        <Text style={{ fontSize: 18 }}>微信</Text>
+                        <Text style={{ fontSize: 18 }}>星座</Text>
                         <TextInput
-                            placeholder="请输入微信号"
+                            placeholder="请输入星座"
                             placeholderTextColor='gray'
                             style={styles.inputconent}
                             onChangeText={(text) => { this.setState({ txtValue3: text }) }}

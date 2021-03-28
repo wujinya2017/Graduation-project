@@ -546,9 +546,22 @@ const App = () => {
           </Scene>
           </Lightbox>
           <Scene key="swiperPage" initial={!isLogin} component={SwiperPage} />
-          <Scene key="login" title='登录' component={Login}/>
-          <Scene key="misspassword" title="找回密码" component={misspassword}/>
-          <Scene key="logon" title="注册" component={Logon}/>
+          <Scene key="login" title='登录' component={Login}
+          />
+          <Scene key="misspassword" title="找回密码" component={misspassword}
+           renderLeftButton={
+            <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+              <Icon name='left' style={{color:'black'}}/>
+            </TouchableOpacity>
+          }
+          />
+          <Scene key="logon" title="注册" component={Logon}
+           renderLeftButton={
+            <TouchableOpacity style={{marginLeft:10}} onPress={()=>Actions.pop()}>
+              <Icon name='left' style={{color:'black'}}/>
+            </TouchableOpacity>
+          }
+          />
         </Modal>
       </Overlay>
     </Router>
