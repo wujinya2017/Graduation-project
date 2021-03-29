@@ -1,12 +1,12 @@
 import { Icon,InputItem } from '@ant-design/react-native';
 import React, { Component } from 'react'
-import {Dimensions,StyleSheet,ScrollView,View,Text,TouchableOpacity,ImageBackground} from 'react-native';
+import {Dimensions,StyleSheet,Alert,ScrollView,View,Text,TouchableOpacity,ImageBackground} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
 const { width } = Dimensions.get('window');
 const s = width / 640;
-
+const arrColor = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
 
 export default class misspassword extends Component {
     constructor(){
@@ -15,7 +15,119 @@ export default class misspassword extends Component {
             phone: '',
             password: '',
             yanpassword:'',
-            secondpassword:''
+            secondpassword:'',
+            str: '',
+            login: false
+        }
+    }
+    componentDidMount() {
+        let str = ''
+        for (let i = 0; i < 4; i++) {
+            var n = Math.round(Math.random() * 15)
+            str += arrColor[n] + ' '
+        }
+        this.setState({
+            str: str
+        })
+    }
+    phone = (e) => {
+        this.setState({
+            phone: e,
+        });
+    }
+    yanzheng = () => {
+        let str = ''
+        for (let i = 0; i < 4; i++) {
+            var n = Math.round(Math.random() * 15)
+            str += arrColor[n] + ' '
+        }
+        this.setState({
+            str: str
+        })
+
+    }
+    login = () => {
+        Actions.login()
+    }
+
+    Logon = () => {
+        Actions.logon()
+    }
+    // 注册按钮点击
+    tijiao = () => {
+
+        if (!(/^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/.test(this.state.phone))) {
+            Alert.alert('提示', "手机号码格式有误，请重填");
+            return false;
+        }
+        else {
+            // console.log(this.state.yanpassword)
+            // console.log(this.state.str)
+            if (this.state.yanpassword != this.state.str) {
+                Alert.alert('提示', "验证码有误，请重填");
+                return false;
+            }
+            else {
+                // console.log(this.state.password)
+                // console.log(this.state.secondpassword)
+                if (this.state.password != this.state.secondpassword||this.state.password == '' || this.state.secondpassword == '') {
+                    Alert.alert('提示', "请检查密码是否已填或正确，请重填");
+                    return false;
+                }
+                else {
+                    if (this.state.password == '') {
+                        Alert.alert('提示', '请填写密码！')
+                    }
+                    else {
+                        fetch('http://81.70.101.193:8005/register_log', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'text/plain; charset=UTF-8'
+                            }
+                        }).then((res) => res.json())
+                            .then((res) => {
+                                for (var i = 0; i < res.data.length; i++) {
+                                    if (res.data[i].use_phone == this.state.phone) {
+                                        this.setState({ login: true })
+                                        return;
+                                    }
+                                }
+                            }).then((res) => {
+                               // console.log(this.state.login)
+                                if (this.state.login == false) {
+                                    Alert.alert('提示', '改手机号未被注册，不可更改密码！')
+                                }
+                                else {
+                                   
+                                    var user = {
+                                        use_password: this.state.password
+                                    }
+                                   // console.log(user)
+                                    fetch(`http://81.70.101.193:8005/uppassword/${this.state.phone}`,{
+                                        method:'POST',
+                                        headers: {
+                                         'Content-Type': 'text/plain; charset=UTF-8'
+                                     },
+                                     body:JSON.stringify(user)
+                                    }).then(res=>res.json())
+                                    .then((res)=>{
+                                        Alert.alert('提示','修改密码成功，请登录！',[
+                                           
+                                                { text: "取消", onPress: this.Logon },
+                                                { text: "确认", onPress: this.login },
+    
+                                           
+                                        ])
+                                    })
+                                   
+                                
+                                }
+                            }
+                            )
+                    }
+                }
+                    
+            }
         }
     }
     render() {
@@ -45,7 +157,7 @@ export default class misspassword extends Component {
                                 value={this.state.yanpassword}
                                 onChange={value => {
                                     this.setState({
-                                        yanpassword: value,
+                                        yanpassword: value+' ',
                                     });
                                 }}
                                 placeholder="请输入验证码"
@@ -53,8 +165,8 @@ export default class misspassword extends Component {
                                 <Icon name='insurance' style={{marginLeft:25*s}}/> 
                             </InputItem>
                         </View>                        
-                        <TouchableOpacity style={{width:100*s,height:60*s,backgroundColor:'#A7BCF0',justifyContent:'center',alignItems:'center',borderRadius:7*s}}>
-                            <Text>获取验证码</Text>
+                        <TouchableOpacity onPress={this.yanzheng}  style={{width:100*s,height:60*s,backgroundColor:'#A7BCF0',justifyContent:'center',alignItems:'center',borderRadius:7*s}}>
+                        <Text style={{ fontSize: 18 }}>{this.state.str}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.shuru}>
@@ -87,7 +199,7 @@ export default class misspassword extends Component {
                             <Icon name='lock' style={{marginLeft:25*s}}/>
                         </InputItem>
                     </View>
-                    <TouchableOpacity onPress={()=>Actions.login()}  style={{marginTop:50*s,backgroundColor:'#A7BCF0',width:500*s,alignItems:'center',height:60*s,borderRadius:10*s,justifyContent:'center'}}>
+                    <TouchableOpacity onPress={this.tijiao}  style={{marginTop:50*s,backgroundColor:'#A7BCF0',width:500*s,alignItems:'center',height:60*s,borderRadius:10*s,justifyContent:'center'}}>
                         <Text style={{fontSize:22*s}}>提交</Text>
                     </TouchableOpacity>
                 </View>
