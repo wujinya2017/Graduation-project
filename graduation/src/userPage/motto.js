@@ -1,9 +1,30 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, Dimensions, StyleSheet, Image, FlatList, Alert } from 'react-native'
-import { List, TextareaItem } from '@ant-design/react-native';
+import { View, Text, TextInput, Dimensions, StyleSheet, Image, FlatList, AsyncStorage, Alert } from 'react-native'
+import { List, TextareaItem, PickerView,Drawer } from '@ant-design/react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
+const seasons = [
+    [
+        {
+            label: '开心',
+            value: '开心',
+        },
+        {
+            label: '沮丧',
+            value: '沮丧',
+        },
+        {
+            label: '难过',
+            value: '难过',
+        },
+        {
+            label: '一般',
+            value: '一般',
+        }
+    ]
+    
+]
 const list = [
     { name: '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈或或或或或或' },
     { name: '11111' },
@@ -11,13 +32,37 @@ const list = [
 ]
 export default class motto extends Component {
     constructor() {
-        super();
+        super(...arguments);
         this.state = {
-            diaplay: true
+            diaplay: true,
+            text: '',
+            use_id: '',
+            value: undefined,
         }
+        this.onChange = value => {
+            this.setState({
+              value,
+            });
+          };
     }
     diaplay = () => {
         Alert.alert('ddd')
+    }
+    //获取输入内容
+    addtext = (e) => {
+        this.setState({
+            text: e
+        })
+    }
+  
+    //获取登录用户的唯一标识id
+    componentDidMount() {
+        AsyncStorage.getItem('use_id', (err, result) => {
+            this.setState({ use_id: JSON.parse(result) })
+            console.log(this.state.use_id)
+        })
+        //console.log(this.state.use_id)
+
     }
     render() {
         return (
@@ -27,7 +72,7 @@ export default class motto extends Component {
                         <TextareaItem
                             rows={7}
                             placeholder="嗨，请在此处输入座右铭吧！"
-
+                            onChange={this.addtext}
                             count={100}
                             style={{ paddingVertical: 5 }}
                         />
@@ -42,8 +87,14 @@ export default class motto extends Component {
                             <Text>添加地点</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.a3}>
-                            <Image style={styles.a4} source={require('../../assets/zxinqing.png')}></Image>
-                            <Text>添加心情</Text>
+                            {/* <Image style={styles.a4} source={require('../../assets/zxinqing.png')}></Image>
+                            <Text>添加心情</Text> */}
+                            <PickerView
+                                onChange={this.onChange}
+                                value={this.state.value}
+                                data={seasons}
+                                cascade={false}
+                            />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.list}>
@@ -57,7 +108,7 @@ export default class motto extends Component {
 
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={styles.zong}>
-                                        <View style={{width:'90%'}}>
+                                        <View style={{ width: '90%' }}>
                                             <Text>{item.name ? (item.name.length > 25 ? item.name.substr(0, 24) + '...' : item.name) : ''}</Text>
                                         </View>
                                         <TouchableOpacity>

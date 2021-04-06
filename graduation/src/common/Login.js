@@ -1,6 +1,6 @@
 import { Icon, InputItem, Checkbox } from '@ant-design/react-native';
 import React, { Component } from 'react'
-import { Image, StyleSheet, ScrollView, View, Text, Dimensions, TouchableOpacity, ImageBackground, Alert } from 'react-native';
+import { Image, StyleSheet, ScrollView, View, Text, Dimensions, TouchableOpacity, AsyncStorage,ImageBackground, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 const { width } = Dimensions.get('window');
@@ -64,6 +64,10 @@ export default class Login extends Component {
                                       }
                                       else
                                       {
+                                        //console.log(res.data[0].use_id)
+                                         AsyncStorage.removeItem('use_id');
+                                        AsyncStorage.setItem('use_id',JSON.stringify(res.data[0].use_id));
+                                        // Actions.lightbox();
                                           Actions.one()
                                       }
                                    }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Dimensions, StyleSheet, Image,TouchableOpacity } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, Image,TouchableOpacity,AsyncStorage } from 'react-native'
 import { List, TextareaItem } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux';
 const { width, scale } = Dimensions.get('window');
@@ -8,8 +8,26 @@ export default class future extends Component {
     constructor(props) {
         super()
         this.state = {
-            a: 'dd'
+            a: '',
+            use_id:''
+
         }
+    }
+    componentDidMount(){
+        AsyncStorage.getItem('use_id', (err, result) => {
+            this.setState({ use_id: JSON.parse(result) })
+           // console.log(this.state.use_id)
+            fetch(`http://81.70.101.193:8005/getletter/${this.state.use_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain; charset=UTF-8'
+                }
+            }).then((res) => res.json())
+            .then((res)=>{
+                //console.log(res.data[0].content)
+                this.setState({a:res.data[0].content+'[最新future]'})
+            })
+        })
     }
     render() {
         return (
@@ -21,7 +39,7 @@ export default class future extends Component {
                     <View style={styles.b}>
                         <View style={styles.c}>
                             <List >
-                                <TextareaItem value={this.state.a} rows={8} placeholder="请点击右下角去给未来的自己写一封信吧！！！" count={500} />
+                                <TextareaItem value={this.state.a} rows={8} placeholder="请点击右下角去给未来的自己写一封信吧！！！" />
                             </List>
                         </View>
                         <View style={styles.d}>
