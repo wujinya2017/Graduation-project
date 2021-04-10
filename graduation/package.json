@@ -27,7 +27,8 @@
     "react-native-screens": "^2.16.1",
     "react-native-swiper": "^1.6.0",
     "react-native-verification-code": "^1.0.1",
-    "react-navigation": "^4.4.3"
+    "react-navigation": "^4.4.3",
+    "rn-global-modal": "^1.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

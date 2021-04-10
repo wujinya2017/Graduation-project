@@ -278,9 +278,10 @@ const App = () => {
                 <Scene 
                   key='fenxiang'
                   component={share}
-                  title="分享"
-                  navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
-                  titleStyle={{ flex: 1, textAlign: 'center'}}
+                  hideNavBar
+                  // title="分享"
+                  // navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                  // titleStyle={{ flex: 1, textAlign: 'center'}}
                 />
               </Scene>
 
@@ -371,7 +372,7 @@ const App = () => {
               ></Scene>
             <Scene key='motto'
                       component={motto}
-                      title="编辑座右铭"
+                      title="我的座右铭"
                       navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
                       titleStyle={{ flex: 1, textAlign: 'center'}}
                       renderLeftButton={
@@ -379,11 +380,7 @@ const App = () => {
                           <Icon name='left' style={{color:'black'}}/>
                         </TouchableOpacity>
                       }
-                      renderRightButton={
-                        <TouchableOpacity style={{marginRight:10}} >
-                        <Text style={{color:'white',fontSize:18}}>发布</Text>
-                        </TouchableOpacity>
-                      }
+                   
               ></Scene>
               <Scene key='chuangzuo'
                       component={chuangzuo}

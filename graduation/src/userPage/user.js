@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { View, Text, Image, Dimensions, StyleSheet, FlatList, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet, FlatList, AsyncStorage,ScrollView,Alert, ImageBackground, TouchableOpacity } from 'react-native';
 import { NoticeBar, WhiteSpace, Icon, Grid,Switch,List } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux'
 
@@ -15,22 +15,56 @@ const lists = [
 const lists1 = [
 
     { title: '意见反馈', name: 'inbox' ,key:'advice'},
-    { title: '我的客服', name: 'customer-service',key:'connect' },
+   // { title: '我的客服', name: 'customer-service',key:'connect' },
     { title: '关于', name: 'exclamation-circle',key:'about' }
 ]
 export default class user extends Component {
     constructor(props) {
         super(props);
-        this.onSwitchChange = value => {
-            this.setState({
-                checked: value,
-            });
-        };
+      
         this.state = {
             checked: false,
+            use_id:'',
+            motto:'一寸光阴一寸金'
         };
     }
 
+    //获取最新座右铭
+    componentDidMount(){
+        // console.log('a')
+        // console.log(this.state.motto)
+        AsyncStorage.getItem('use_id', (err, result) => {
+            this.setState({ use_id: JSON.parse(result) })
+            // console.log(this.state.use_id)
+
+            //获取座右铭
+            fetch(`http://81.70.101.193:8005/getmotto_up/${this.state.use_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain; charset=UTF-8'
+                }
+            }).then((res) => res.json())
+                .then((res) => {
+               
+                    this.setState({ motto: res.data[0].content })
+                    //console.log(this.state.motto)
+                })
+
+        })
+        //console.log(this.state.use_id)
+
+
+
+    }
+
+    //退出登录
+    tuichu=()=>{
+        Alert.alert('提示','确定要退出登录吗！',[
+                                           
+          
+            { text: "确认",onPress: ()=>{Actions.login()}  },
+            { text: "取消" },
+ ]) }
     render() {
         if (this.state.checked==false)
         {
@@ -43,7 +77,7 @@ export default class user extends Component {
                                 marqueeProps={{ loop: true, style: { fontSize: 22, color: 'red' } }}
                                 action={<Text style={{ color: '#a1a1a1' }}>不再提示</Text>}
                             >
-                                吃得苦中苦，方为人上人，请点击右方设置你的座右铭吧！！！
+                               {this.state.motto}
                               </NoticeBar>
                         </View>
                         <View style={{ width: '7%', height: 37, backgroundColor: '#fffada' }}>
@@ -136,27 +170,9 @@ export default class user extends Component {
                         </View>
                         <View style={styles.botto}>
                             <View style={styles.zong}>
-                                <View style={styles.aa}>
-                                    <Icon name='mobile' color='#A7BCF0' size='md'></Icon></View>
-                                <View style={styles.file}><Text style={{ fontSize: 22 }}>夜间模式</Text></View>
-                                <View style={{backgroundColor:'red',width:'20%',height:30}}>
-                                  
-                                        <List style={{marginTop:-10}}>
-                                           
-                                            <List.Item
-                                                extra={
-                                                    <Switch
-                                                        checked={this.state.checked}
-                                                        onChange={this.onSwitchChange}
-                                                    />
-                                                }
-                                            >
-                                                {this.state.checked ? 'open' : 'close'}
-                                            </List.Item>
-                                         
-                                        </List>
-                                  
-                                </View>
+                              
+                                <TouchableOpacity onPress={this.tuichu} style={styles.file,[{alignItems:'center'}]}><Text style={{ fontSize: 22 }}>退出登录</Text></TouchableOpacity>
+                             
                             </View>
                         </View>
                     </ScrollView>
@@ -269,10 +285,10 @@ export default class user extends Component {
                             <View style={styles.zong1}>
                                 <View style={styles.aa}>
                                     <Icon name='mobile' color='#A7BCF0' size='md'></Icon></View>
-                                <View style={styles.file}><Text style={{ fontSize: 22 }}>夜间模式</Text></View>
+                                <View style={styles.file}><Text style={{ fontSize: 22 }}>退出登录</Text></View>
                                 <View style={{backgroundColor:'red',width:'20%',height:30}}>
                                   
-                                        <List style={{marginTop:-10,backgroundColor:'#adaba3'}}>
+                                        {/* <List style={{marginTop:-10,backgroundColor:'#adaba3'}}>
                                            
                                             <List.Item
                                                 extra={
@@ -285,7 +301,7 @@ export default class user extends Component {
                                                 {this.state.checked ? 'open' : 'close'}
                                             </List.Item>
                                          
-                                        </List>
+                                        </List> */}
                                   
                                 </View>
                             </View>

@@ -1,35 +1,16 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, Dimensions, StyleSheet, Image, FlatList, AsyncStorage, Alert } from 'react-native'
-import { List, TextareaItem, PickerView,Drawer } from '@ant-design/react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, TextInput, Dimensions, StyleSheet, Image, FlatList, AsyncStorage, Alert, TouchableOpacity } from 'react-native'
+import { List, TextareaItem, PickerView, Drawer } from '@ant-design/react-native';
+import { Actions } from 'react-native-router-flux';
+import {
+    Icon, Button, InputItem,
+
+    WhiteSpace,
+} from '@ant-design/react-native'
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
-const seasons = [
-    [
-        {
-            label: '开心',
-            value: '开心',
-        },
-        {
-            label: '沮丧',
-            value: '沮丧',
-        },
-        {
-            label: '难过',
-            value: '难过',
-        },
-        {
-            label: '一般',
-            value: '一般',
-        }
-    ]
-    
-]
-const list = [
-    { name: '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈或或或或或或' },
-    { name: '11111' },
-    { name: '112333' }
-]
+
+
 export default class motto extends Component {
     constructor() {
         super(...arguments);
@@ -38,12 +19,13 @@ export default class motto extends Component {
             text: '',
             use_id: '',
             value: undefined,
+            list1: []
         }
         this.onChange = value => {
             this.setState({
-              value,
+                value,
             });
-          };
+        };
     }
     diaplay = () => {
         Alert.alert('ddd')
@@ -54,14 +36,100 @@ export default class motto extends Component {
             text: e
         })
     }
-  
+
     //获取登录用户的唯一标识id
     componentDidMount() {
         AsyncStorage.getItem('use_id', (err, result) => {
             this.setState({ use_id: JSON.parse(result) })
-            console.log(this.state.use_id)
+            // console.log(this.state.use_id)
+
+            //获取座右铭
+            fetch(`http://81.70.101.193:8005/getmotto/${this.state.use_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain; charset=UTF-8'
+                }
+            }).then((res) => res.json())
+                .then((res) => {
+                    //console.log(res)
+                    this.setState({ list1: res.data })
+                   // console.log(this.state.list1)
+                })
+
         })
         //console.log(this.state.use_id)
+
+
+
+    }
+
+
+    //发布座右铭
+    fabu = () => {
+        //console.log(this.state.text)
+        if (this.state.text == '') {
+            Alert.alert('提示', '请输入座右铭后在提交！')
+        }
+        else {
+            var user = { content: this.state.text }
+            fetch(`http://81.70.101.193:8005/addmotto/${this.state.use_id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain; charset=UTF-8'
+                },
+                body: JSON.stringify(user)
+            }).then(res => res.json())
+                .then((res) => {
+                    Alert.alert('提示', '上传成功成功', [
+
+
+                        {
+                            text: "确认"
+                        },
+                    ])
+                    fetch(`http://81.70.101.193:8005/getmotto/${this.state.use_id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'text/plain; charset=UTF-8'
+                        }
+                    }).then((res) => res.json())
+                        .then((res) => {
+                            //console.log(res)
+                            this.setState({ list1: res.data })
+                            console.log(this.state.list1)
+                        })
+                })
+
+        }
+    }
+    //删除座右铭
+    delmotto = (motto_id) => {
+     // console.log(motto_id)
+        fetch(`http://81.70.101.193:8005/delmotto/${motto_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'text/plain; charset=UTF-8'
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                Alert.alert('提示', '删除成功！', [
+                    { text: "确认"},
+                
+                ])
+                fetch(`http://81.70.101.193:8005/getmotto/${this.state.use_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain; charset=UTF-8'
+                    }
+                }).then((res) => res.json())
+                    .then((res) => {
+                        //console.log(res)
+                        this.setState({ list1: res.data })
+                      //  console.log(this.state.list1)
+                    })
+            
+            })
 
     }
     render() {
@@ -77,44 +145,31 @@ export default class motto extends Component {
                             style={{ paddingVertical: 5 }}
                         />
                     </View>
-                    <View style={styles.a2}>
-                        <TouchableOpacity style={styles.a3}>
-                            <Image style={styles.a4} source={require('../../assets/zjing.png')}></Image>
-                            <Text>添加话题</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.a3]}>
-                            <Image style={styles.a4} source={require('../../assets/zdi.png')}></Image>
-                            <Text>添加地点</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.a3}>
-                            {/* <Image style={styles.a4} source={require('../../assets/zxinqing.png')}></Image>
-                            <Text>添加心情</Text> */}
-                            <PickerView
-                                onChange={this.onChange}
-                                value={this.state.value}
-                                data={seasons}
-                                cascade={false}
-                            />
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity style={{ backgroundColor: '#A7BCF0', width: 74, height: 30, marginLeft: '85%', justifyContent: 'center', alignItems: 'center' }} onPress={this.fabu}>
+                        <Text style={{ fontSize: 20, color: 'white' }}>发布</Text>
+                    </TouchableOpacity>
                     <View style={styles.list}>
                         <Image style={styles.img} source={require('../../assets/zhistory.png')} onPress={() => this.display()}></Image>
                         <Text style={{ fontSize: 27, marginLeft: 10 * s }}>我的历史</Text>
                     </View>
                     <View>
                         <FlatList
-                            data={list}
+                            data={this.state.list1}
                             renderItem={({ item }) => (
 
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={styles.zong}>
-                                        <View style={{ width: '90%' }}>
-                                            <Text>{item.name ? (item.name.length > 25 ? item.name.substr(0, 24) + '...' : item.name) : ''}</Text>
+                                        <View style={{flexDirection:'row',marginTop:13}}>
+                                            <View style={{ width: '90%' }}>
+                                                <Text style={{fontSize:18}}>{item.content ? (item.content.length > 25 ? item.content.substr(0, 24) + '...' : item.content) : ''}</Text>
+                                            </View>
+                                            <TouchableOpacity onPress={()=>this.delmotto(item.motto_id)}>
+                                                <Image style={styles.img} source={require('../../assets/zla.png')}></Image>
+                                            </TouchableOpacity>
                                         </View>
-                                        <TouchableOpacity>
-                                            <Image style={styles.img} source={require('../../assets/zla.png')}></Image>
-                                        </TouchableOpacity>
+                                        <View><Text>{item.motto_time}</Text></View>
                                     </View>
+
 
                                 </View>
 
@@ -171,12 +226,12 @@ const styles = StyleSheet.create({
     zong: {
         borderColor: '#adaba3',
         borderWidth: 2,
-        flexDirection: 'row',
-        height: 70 * s,
-        marginTop: 13 * s,
+        flexDirection: 'column',
+        height: 90 * s,
+        marginTop: 33 * s,
         width: '95%',
         borderRadius: 30 * s,
-        alignItems: 'center',
+      
         paddingLeft: 15 * s
     },
 
