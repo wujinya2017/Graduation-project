@@ -709,6 +709,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@bang88/china-city-data@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/@bang88/china-city-data/download/@bang88/china-city-data-1.0.0.tgz#d4a6bef624fa1b20a3593b6a2aab3816cbef0ffe"
+  integrity sha1-1Ka+9iT6GyCjWTtqKqs4FsvvD/4=
+
 "@bang88/react-native-drawer-layout@^2.0.3":
   version "2.0.3"
   resolved "https://registry.npm.taobao.org/@bang88/react-native-drawer-layout/download/@bang88/react-native-drawer-layout-2.0.3.tgz#a93abd5a9c6d1fc4c0924a9f21c2cd7d1deea88d"
@@ -1185,6 +1190,11 @@
   resolved "https://registry.npm.taobao.org/@react-native-community/eslint-plugin/download/@react-native-community/eslint-plugin-1.1.0.tgz#e42b1bef12d2415411519fd528e64b593b1363dc"
   integrity sha1-5Csb7xLSQVQRUZ/VKOZLWTsTY9w=
 
+"@react-native-community/geolocation@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.npm.taobao.org/@react-native-community/geolocation/download/@react-native-community/geolocation-2.0.2.tgz#ba8b40f560ead8d014740d1cdea970b33f19312e"
+  integrity sha1-uotA9WDq2NAUdA0c3qlwsz8ZMS4=
+
 "@react-native-community/segmented-control@^2.2.2":
   version "2.2.2"
   resolved "https://registry.npm.taobao.org/@react-native-community/segmented-control/download/@react-native-community/segmented-control-2.2.2.tgz#4014256819ab8f40f6bc3a3929ff14a9d149cf04"
@@ -1615,6 +1625,11 @@ ansi-wrap@0.1.0, ansi-wrap@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npm.taobao.org/ansi-wrap/download/ansi-wrap-0.1.0.tgz#a82250ddb0015e9a27ca82e82ea603bbfa45efaf"
   integrity sha1-qCJQ3bABXponyoLoLqYDu/pF768=
+
+antd-mobile-demo-data@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npm.taobao.org/antd-mobile-demo-data/download/antd-mobile-demo-data-0.3.0.tgz#f275250bebdad308af481672635f8b90def34aed"
+  integrity sha1-8nUlC+va0wivSBZyY1+LkN7zSu0=
 
 anymatch@^2.0.0:
   version "2.0.0"

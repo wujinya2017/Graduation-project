@@ -48,6 +48,7 @@ import Logon from "./src/common/Logon";
 import SwiperPage from './src/common/SwiperPage'
 import misspassword from './src/common/misspassword';
 import jihua from './src/userPage/jihua';
+import fabu from './src/SharePage/fabu';
 
 const App = () => {
   let [isLogin,setLogin] = useState(false);
@@ -278,6 +279,14 @@ const App = () => {
                 <Scene 
                   key='fenxiang'
                   component={share}
+                  hideNavBar
+                  // title="分享"
+                  // navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                  // titleStyle={{ flex: 1, textAlign: 'center'}}
+                />
+                    <Scene 
+                  key='fabu'
+                  component={fabu}
                   hideNavBar
                   // title="分享"
                   // navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
