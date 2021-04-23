@@ -2,7 +2,7 @@
 import { district } from 'antd-mobile-demo-data';
 import React from 'react';
 import { Text, View, ScrollView, Dimensions, StyleSheet, Image, Modal, TouchableOpacity, AsyncStorage, Alert, ToastAndroid } from 'react-native';
-import { List, Picker, Provider, TextareaItem, InputItem, Icon } from '@ant-design/react-native';
+import { List, Picker, Provider, TextareaItem, InputItem, Icon, Toast, ActionSheet } from '@ant-design/react-native';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
 import { FlatList } from 'react-native-gesture-handler';
@@ -33,12 +33,38 @@ export default class PopupExample extends React.Component {
             quanxian: '所有人可见',
             modalVisible: false,
             modalVisible2: false,
-            img:[{imgsrc:"'../../assets/伤心.png'"},{imgsrc:"'../../assets/伤心.png'"},{imgsrc:"'../../assets/伤心.png'"},{imgsrc:"'../../assets/伤心.png'"}]
+            modalVisible3: false,
+            img: [{ imgsrc: "'../../assets/伤心.png'" }, { imgsrc: "'../../assets/伤心.png'" }, { imgsrc: "'../../assets/伤心.png'" }, { imgsrc: "'../../assets/伤心.png'" }],
+            imageUrl: '',
+            content:'',
+            use_id:'',
+            use_name:''
+
 
         };
     }
     //获取时间
     componentDidMount() {
+        AsyncStorage.getItem('use_id', (err, result) => {
+            this.setState({ use_id: JSON.parse(result) })
+           // console.log(this.state.use_id)
+           fetch(`http://81.70.101.193:8005/get_phone/${this.state.use_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'text/plain; charset=UTF-8'
+            }
+        }).then((res) => res.json())
+            .then((res) => {
+                //console.log(res.data[0])
+                this.setState({ use_name: res.data[0].use_name })
+            })
+    
+    
+
+        })
+        //console.log(this.state.use_id)
+
+
         var date = new Date();
         var year = date.getFullYear().toString();
         var month = (date.getMonth() + 1).toString();
@@ -61,6 +87,13 @@ export default class PopupExample extends React.Component {
             modalVisible2: visible
         })
     };
+    //草稿
+    
+     setModalVisible3= (visible) => {
+        this.setState({
+            modalVisible3: visible
+        })
+    };
     //xinqing
     xinqing = (e) => {
         //console.log(e.e)
@@ -71,13 +104,122 @@ export default class PopupExample extends React.Component {
 
     }
     //quanxian
-    quanxian=(e)=>{
+    quanxian = (e) => {
         this.setState({
             quanxian: e.e,
 
         })
     }
+    //拍照
+    takephoto = () => {
+        // //拍照
+        const options = {
+            title: '请选择',
+            cancelButtonTitle: '取消',
+            takePhotoButtonTitle: '拍照',
+            chooseFromLibraryButtonTitle: '选择相册',
+            customButtons: [],
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.showImagePicker(options, (response) => {
+            if (response.didCancel) {
+                return;
+            } else if (response.error) {
+                console.log('Error:', response.error);
+            } else if (response.customButton) {
+                console.log('custom:', response.customButton);
+            } else {
+                const source = { uri: response.uri };
+                this.setState({
+                    imageUrl: source,
 
+                })
+                console.log(this.state.imageUrl)
+            }
+        });
+
+    }
+    //发布
+    fabu=()=>{
+        var a={
+            use_id:this.state.use_id,
+            content:this.state.content,
+            xinqing:this.state.xinqing,
+            quanxian:this.state.quanxian,
+            shijian:this.state.qiantime,
+            location:this.state.value,
+            use_name:this.state.use_name
+        }
+        if(this.state.content=='')
+        {
+            Alert.alert('提示','请输入发布内容！')
+        }
+        else{
+            if(this.state.value=='')
+            {
+                Alert.alert('提示','请选择位置！')
+            }
+            else{
+                fetch(`http://81.70.101.193:8005/zfabu`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain; charset=UTF-8'
+                    },
+                    body: JSON.stringify(a)
+                }).then(res => res.json())
+                .then(res=>{
+                   Alert.alert('提示','发布成功，请确认是否返回到展示页面！',[
+                    { text: "确认", onPress: ()=>{Actions.fenxiang()} },
+                    { text: "取消"},
+                   ])
+                })
+            }
+        }
+    
+    }
+
+    //保存
+    baocun=()=>{
+      
+            var a={
+                use_id:this.state.use_id,
+                content:this.state.content,
+                xinqing:this.state.xinqing,
+                quanxian:this.state.quanxian,
+                shijian:this.state.qiantime,
+                location:this.state.value,
+                use_name:this.state.use_name
+            }
+            if(this.state.content=='')
+            {
+                Alert.alert('提示','请输入发布内容！')
+            }
+            else{
+                if(this.state.value=='')
+                {
+                    Alert.alert('提示','请选择位置！')
+                }
+                else{
+                    fetch(`http://81.70.101.193:8005/zcaogao`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'text/plain; charset=UTF-8'
+                        },
+                        body: JSON.stringify(a)
+                    }).then(res => res.json())
+                    .then(res=>{
+                       Alert.alert('提示','保存草稿成功')
+                       this.setModalVisible3(false)
+                       Actions.fenxiang()
+                    })
+                }
+            }
+    
+        
+    }
     render() {
         return (
             <ScrollView>
@@ -92,11 +234,40 @@ export default class PopupExample extends React.Component {
                         }}
 
                     >
-
-                        <TouchableOpacity style={{ height: 73, width: 80, justifyContent: 'center', marginLeft: 20 }} onPress={() => Actions.pop()}>
+                         <TouchableOpacity style={{marginLeft:5}} onPress={()=>Actions.fenxiang()}>
+                             <Image source={require('../../assets/zleft.png')} style={{width:25,height:25}}></Image>
+                         </TouchableOpacity>
+                        <TouchableOpacity style={{ height: 73, width: 80, justifyContent: 'center', marginLeft: 20 }} onPress={() => {
+                                this.setModalVisible3(true)
+                            }}>
                             <Text style={{ fontSize: 23, color: 'white' }}>取消</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ height: 73, width: 80, justifyContent: 'center', marginLeft: 320 }}>
+                        <Modal animationType={'none'}
+                            transparent={true}
+                            visible={this.state.modalVisible3}
+                        >
+                            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                                <View style={{ height: 200,width:'70%',opacity:0.8, backgroundColor: '#A7BCF0', alignItems: 'center' }}>
+                                   
+                                    <View style={{borderBottomColor:'black',borderBottomWidth:2,height:130,width:'100%',justifyContent:'center',alignItems:'center'}}>
+                                        <Text style={{fontSize:20}}>是否保存为草稿？</Text>
+                                    </View>
+                                    <View style={{flexDirection:'row'}}>
+                                        <TouchableOpacity style={{height:70,width:'48%',borderRightColor:'black',borderRightWidth:2,justifyContent:'center',alignItems:'center'}} onPress={() => this.setModalVisible3(false)} >
+                                            <Text style={{fontSize:23}}>取消</Text>
+                                        </TouchableOpacity >
+                                        <TouchableOpacity onPress={this.baocun} style={{height:70,width:'48%',justifyContent:'center',alignItems:'center'}}>
+                                        <Text style={{fontSize:23}}>保存</Text>
+                                        </TouchableOpacity >
+                                    </View>
+                                    
+                                      
+                                    
+                                </View>
+
+                            </View>
+                        </Modal>
+                        <TouchableOpacity style={{ height: 73, width: 80, justifyContent: 'center', marginLeft: 280 }} onPress={this.fabu}>
                             <Text style={{ fontSize: 23, color: 'white' }}>发布</Text>
                         </TouchableOpacity>
 
@@ -131,25 +302,26 @@ export default class PopupExample extends React.Component {
                             }
 
                         </View> */}
-                        <View style={{flexDirection:'row'}}>
+                        {/* <View style={{ flexDirection: 'row' }}>
                             <FlatList
-                            data={this.state.img}
-                            numColumns ={4}
-                            renderItem={({item})=>(
-                             
-                                  <View style={{marginLeft:10 ,flexDirection:'row'}}>
-                                        <View style={{height:100,width:100,backgroundColor:'red'}}>
-                                    {/* <Image style={{height:100,width:100,backgroundColor:'red'}} ></Image> */}
-<Text>{item.imgsrc}</Text>
-                               </View>
-                                  </View>
-                            )}
+                                data={this.state.img}
+                                numColumns={4}
+                                renderItem={({ item }) => (
+
+                                    <View style={{ marginLeft: 10, flexDirection: 'row' }}>
+                                        <View style={{ height: 100, width: 100, backgroundColor: 'red' }}>
+                                            <Image style={{ height: 100, width: 100, backgroundColor: 'red' }} source={{ uri: item.imgsrc }}></Image>
+                                            <Text>{item.imgsrc}</Text>
+                                        </View>
+                                    </View>
+                                )}
                             ></FlatList>
-                            
+
                         </View>
-                        <View style={{height:100,width:100,backgroundColor:'green'}}>
-                                    {/* <Image source={require()} style={{height:100,width:100,backgroundColor:'red'}} ></Image> */}
-                                </View>
+                        <TouchableOpacity onPress={() => this.takephoto()} style={{ height: 60, marginTop: 20, alignItems: 'center', justifyContent: 'center', width: '99%', backgroundColor: '#A7BCF0', borderRadius: 10 }}>
+                            <Text style={{ fontSize: 50, color: 'white' }}>+</Text>
+
+                        </TouchableOpacity> */}
 
                     </View>
                     <View style={{ width: '95%', backgroundColor: 'white', borderBottomLeftRadius: 20 * s, borderBottomRightRadius: 20 * s }}>
@@ -220,17 +392,17 @@ export default class PopupExample extends React.Component {
 
                                     <View style={{ height: 297, width: '97%', backgroundColor: 'white' }}>
 
-                                        <View style={{ flexDirection: 'column' ,alignItems:'center'}}>
-                                            <TouchableOpacity onPress={(kaixin) => this.quanxian({ e: '仅自己可见' })} style={{ width: '90%', height: 60,marginTop:10, borderRadius: 30, backgroundColor: '#afdfe4', alignItems: 'center', justifyContent: 'center' }}>
+                                        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                                            <TouchableOpacity onPress={(kaixin) => this.quanxian({ e: '仅自己可见' })} style={{ width: '90%', height: 60, marginTop: 10, borderRadius: 30, backgroundColor: '#afdfe4', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Text>仅自己可见</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity onPress={(kaixin) => this.quanxian({ e: '所有人可见' })} style={{width: '90%', height: 60, borderRadius: 30, backgroundColor: '#afdfe4', marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                            <Text>所有人可见</Text>
+                                            <TouchableOpacity onPress={(kaixin) => this.quanxian({ e: '所有人可见' })} style={{ width: '90%', height: 60, borderRadius: 30, backgroundColor: '#afdfe4', marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
+                                                <Text>所有人可见</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity onPress={(kaixin) => this.quanxian ({ e: '部分人可见' })} style={{ width: '90%', height: 60, borderRadius: 30, backgroundColor: '#afdfe4', marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                            <Text>部分人可见</Text>
+                                            <TouchableOpacity onPress={(kaixin) => this.quanxian({ e: '部分人可见' })} style={{ width: '90%', height: 60, borderRadius: 30, backgroundColor: '#afdfe4', marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
+                                                <Text>部分人可见</Text>
                                             </TouchableOpacity>
-                                           
+
                                             <View style={{ width: '100%', height: 50, flexDirection: 'row', marginTop: 20 }}>
                                                 <Text style={{ fontSize: 20, width: '60%' }}>权限：{this.state.quanxian}</Text>
                                                 <TouchableOpacity onPress={() => this.setModalVisible2(false)} style={{ width: 50, marginTop: -10, height: 40, backgroundColor: '#afdfe4', marginLeft: 80, alignItems: 'center', justifyContent: 'center' }} >
@@ -249,7 +421,7 @@ export default class PopupExample extends React.Component {
                                 <Icon style={{ color: '#708090', padding: 3 * s }} name='user' />
                                 <Text style={{ fontSize: 18, marginLeft: 8 }}>权限</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ flexDirection: 'row', marginLeft: '60%' }}  onPress={() => {this.setModalVisible2(true)}} >
+                            <TouchableOpacity style={{ flexDirection: 'row', marginLeft: '60%' }} onPress={() => { this.setModalVisible2(true) }} >
                                 <Text style={{ fontSize: 17, color: 'gray' }}>{this.state.quanxian}</Text>
                                 <Icon name='right' />
                             </TouchableOpacity>
