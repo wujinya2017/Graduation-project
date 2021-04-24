@@ -5,9 +5,12 @@ import { FlatList } from 'react-native-gesture-handler'
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 const list=[
-    {name:'22222'},
-    {name:'11111'},
-    {name:'112333'}
+    {name:'大大',img:require('../../assets/zt3.jpg')},
+    {name:'下下',img:require('../../assets/zt2.jpg')},
+    {name:'减肥不长肉',img:require('../../assets/zt5.jpg')},
+    {name:'hello',img:require('../../assets/z8.jpg')},
+    {name:'吼吼',img:require('../../assets/z9.jpg')},
+    {name:'小心心',img:require('../../assets/zt6.jpg')}
 ]
 export default class fangke extends Component {
     render() {
@@ -18,7 +21,7 @@ export default class fangke extends Component {
             renderItem={({item})=>(
                 <TouchableOpacity style={styles.zong}>
                     <View style={styles.t1}>
-                        <Image style={styles.t4} source={require('../../assets/z1.jpg')}></Image>
+                        <Image style={styles.t4} source={item.img}></Image>
                     </View>
                     <View style={styles.t2}><Text>{item.name}</Text></View>
                  

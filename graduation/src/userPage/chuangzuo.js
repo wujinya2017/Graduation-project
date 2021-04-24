@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity, FlatList, ImageBackground } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, Image, AsyncStorage,TouchableOpacity,Alert, FlatList, ImageBackground } from 'react-native'
 import { Button, Progress, WhiteSpace } from '@ant-design/react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 const { width, scale } = Dimensions.get('window');
@@ -16,7 +16,60 @@ export default class chuangzuo extends Component {
         super();
         this.state = ({
             percent: 40,
+            use_id:'',
+            my:{}
         })
+    }
+    componentDidMount(){
+        AsyncStorage.getItem('use_id', (err, result) => {
+            this.setState({ use_id: JSON.parse(result) })
+            //console.log(this.state.use_id)
+            fetch(`http://81.70.101.193:8005/getfabu/${this.state.use_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain; charset=UTF-8'
+                }
+            }).then((res) => res.json())
+            .then((res)=>{
+               // console.log(res.data)
+                this.setState({my:res.data})
+            })
+
+        })
+    }
+    del = (e) => {
+       // console.log(e)
+  
+        fetch(`http://81.70.101.193:8005/delfabu/${e}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'text/plain; charset=UTF-8'
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                Alert.alert('提示', '删除成功！', [
+                    { text: "确认" },
+
+                ])
+                fetch(`http://81.70.101.193:8005/getfabu/${this.state.use_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain; charset=UTF-8'
+                    }
+                }).then((res) => res.json())
+                .then((res)=>{
+                   // console.log(res.data)
+                    this.setState({my:res.data})
+                })
+    
+            })
+    
+    
+            
+
+            
+
     }
     render() {
         return (
@@ -54,7 +107,9 @@ export default class chuangzuo extends Component {
                                         <View ><Text style={styles.c4}>点赞数</Text></View>
                                     </View>
                                 </ImageBackground>
+                                
                             </View>
+                           
                         </View>
                     </View>
 
@@ -62,16 +117,19 @@ export default class chuangzuo extends Component {
             
                
                   <FlatList
-                        data={list}
+                        data={this.state.my}
                         renderItem={({ item }) => (
                      
                               <View style={styles.tt}>
                                     <View style={styles.t}>
-                                        <View><Text>{item.name}</Text></View>
-                                        <View><Text>{item.text}</Text></View>
-                                        <View style={styles.c31} ><Text>2020.1.23</Text></View>
+                                        <View><Text>{item.use_name}</Text></View>
+                                        <View><Text style={{fontSize:18}}>&nbsp;&nbsp;{item.content}</Text></View>
+                                        <View style={styles.c31} ><Text>{item.state_date}</Text></View>
+                                        <TouchableOpacity style={{ marginLeft: '87%' }} onPress={() => this.del(item.su_id)}>
+                                            <Image source={require('../../assets/zla.png')} style={{ width: 30, height: 30, marginLeft: 5 }}></Image>
+                                        </TouchableOpacity>
                                     </View>
-                                   
+                                 
                                 </View>
                         
                            
@@ -158,7 +216,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     c31:{
-        paddingLeft:'80%',
+        paddingLeft:'55%',
         
     },
     c4: {
@@ -170,12 +228,12 @@ const styles = StyleSheet.create({
     },
     t: {
         width: '95%',
-        height: 150 * s,
+        height: 170 * s,
         justifyContent: 'center',
         paddingLeft: '4%',
        borderColor:'#A7BCF0',
        borderWidth:1,
-        marginTop: 3 * s,
+        marginTop: 6 * s,
         borderRadius: 30 * s
     },
 })

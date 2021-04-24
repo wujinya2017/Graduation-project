@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Dimensions, TextInput, TouchableOpacity, ImageBackground, Image, StyleSheet, AsyncStorage } from 'react-native'
+import { Text, View, Dimensions, TextInput, TouchableOpacity, ImageBackground, Image, StyleSheet, AsyncStorage, Alert } from 'react-native'
 import ImagePicker from 'react-native-image-picker';
 import { NoticeBar, Icon, InputItem, List, TextareaItem } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux';
@@ -35,11 +35,11 @@ export default class message extends Component {
         this.state = {
             data: [],
             imageUrl: '',
-            txtValue1: '',
-            txtValue2: '',
-            txtValue3: '',
-            txtValue4: '',
-            txtValue5: '',
+            txtValue1: '未填写',
+            txtValue2: '未填写',
+            txtValue3: '未填写',
+            txtValue4: '未填写',
+            txtValue5: '未填写',
             wtouxiang: '',
             wusername: '',
             wsex: '',
@@ -47,7 +47,13 @@ export default class message extends Component {
             wclass: '',
             wschool: '',
             loginstd: '',
-            wimage: ''
+            wimage: '',
+            use_id:'',
+            aa1:'请输入昵称',
+            aa2:'请输入性别',
+            aa3:'请输入星座',
+            aa4:'请输入年龄',
+            aa5:'请输入微信'
         }
     }
 
@@ -76,40 +82,49 @@ export default class message extends Component {
             }
         });
     }
-    // baocun = ()=>{
-    //     // AsyncStorage.clear();
-    //     var a={};
-    //     a.wusername=this.state.txtValue1 || this.state.wusername;
-    //     a.wsex=this.state.txtValue2 || this.state.wsex;
-    //     a.weixinnumber=this.state.txtValue3 || this.state.weixinnumber;
-    //     a.wclass=this.state.txtValue4 || this.state.wclass;
-    //     a.wschool=this.state.txtValue5 || this.state.wschool;
-    //     a.stdtouxiang = this.state.wimage;
-    //     AsyncStorage.getItem('std')
-    //     .then((res)=>{
-    //         this.setState({
-    //             loginstd:JSON.parse(res)
-    //         })
-    //         fetch(`http://148.70.183.184:8006/stdmine/${this.state.loginstd}`,{
-    //             method: "POST",
-    //             headers: {
-    //                 'Accept': 'application/json', 
-    //                 'x-access-token': '',
-    //                 'Content-Type': 'text/plain; charset=UTF-8;multipart/form-data'
-    //             },
-    //             body: JSON.stringify(a)
-    //         })
-    //         .then(res => res.text())
-    //         .then((res)=>{
-    //             console.log(res+'成功')
-
-    //         }).catch((error)=>{
-    //             console.log(error+'失败')
-    //         })
-
-    //     })
-    //     Actions.pop();
-    // }
+    componentDidMount(){
+        AsyncStorage.getItem('use_id', (err, result) => {
+            this.setState({ use_id: JSON.parse(result) })
+            // console.log(this.state.use_id)
+            fetch(`http://81.70.101.193:8005/get_phone/${this.state.use_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain; charset=UTF-8'
+                }
+            }).then((res) => res.json())
+            .then((res)=>{
+               // console.log(res.data)
+                this.setState({aa1:res.data[0].use_name})
+                this.setState({aa2:res.data[0].use_sex})
+                this.setState({aa3:res.data[0].xing_zuo})
+                this.setState({aa4:res.data[0].use_age})
+                this.setState({aa5:res.data[0].use_wechat})
+            })
+           
+        })
+       
+    }
+  baocun=()=>{
+      var a={
+          use_name:this.state.aa1,
+          use_sex:this.state.aa2,
+          use_wechat:this.state.aa3,
+          use_age:this.state.aa4,
+          xing_zuo:this.state.aa5
+      }
+      //console.log(a)
+      fetch(`http://81.70.101.193:8005/zmessage/${this.state.use_id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain; charset=UTF-8'
+        },
+        body: JSON.stringify(a)
+    }).then(res => res.json())
+        .then((res) => {
+            Alert.alert('修改个人信息成功！')
+        })
+   
+  }
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -118,7 +133,7 @@ export default class message extends Component {
                 <View>
                     <View style={styles.firstlist}>
                         <Text style={{ fontSize: 18 }}>头像</Text>
-                        <TouchableOpacity onPress={() => this.takephoto()} style={styles.buttontouxiang}>
+                        <TouchableOpacity  style={styles.buttontouxiang}>
                             <ImageBackground style={{ width: 100 * s, height: 100 * s }} source={require('../../assets/1.jpg')}>
                                 <Image style={{ width: 100 * s, height: 100 * s }} source={this.state.imageUrl} />
                             </ImageBackground>
@@ -129,8 +144,8 @@ export default class message extends Component {
                         <Text style={{ fontSize: 18 }}>昵称</Text>
                         
                             <TextInput
-                                placeholder="请输入昵称"
-                                onChangeText={(text) => { this.setState({ txtValue1: text }) }}
+                                placeholder={this.state.aa1}
+                                onChangeText={(text) => { this.setState({ aa1: text }) }}
                                 placeholderTextColor='gray'
                                 style={styles.inputconent}
                                 underlineColorAndroid='transparent'
@@ -140,53 +155,41 @@ export default class message extends Component {
                     <View style={styles.listcontent}>
                         <Text style={{ fontSize: 18 }}>性别</Text>
                         <TextInput
-                            placeholder="请输入性别"
+                            placeholder={this.state.aa2}
                             placeholderTextColor='gray'
-                            onChangeText={(text) => { this.setState({ txtValue2: text }) }}
+                            onChangeText={(text) => { this.setState({ aa2: text }) }}
                             style={styles.inputconent}
                         >{this.state.wsex}</TextInput>
                     </View>
                     <View style={styles.listcontent}>
                         <Text style={{ fontSize: 18 }}>星座</Text>
                         <TextInput
-                            placeholder="请输入星座"
+                            placeholder={this.state.aa3}
                             placeholderTextColor='gray'
                             style={styles.inputconent}
-                            onChangeText={(text) => { this.setState({ txtValue3: text }) }}
+                            onChangeText={(text) => { this.setState({ aa3: text }) }}
                         >{this.state.weixinnumber}</TextInput>
                     </View>
                     <View style={styles.listcontent}>
-                        <Text style={{ fontSize: 18 }}>年级</Text>
+                        <Text style={{ fontSize: 18 }}>年龄</Text>
                         <TextInput
-                            placeholder="请输入年级"
+                            placeholder={this.state.aa4}
+                            placeholderTextColor='gray'
+                            onChangeText={(text) => { this.setState({ aa4: text }) }}
+                            style={styles.inputconent}
+                        >{this.state.wsex}</TextInput>
+                    </View>
+                    <View style={styles.listcontent}>
+                        <Text style={{ fontSize: 18 }}>微信</Text>
+                        <TextInput
+                            placeholder={this.state.aa5}
                             placeholderTextColor='gray'
                             style={styles.inputconent}
-                            onChangeText={(text) => { this.setState({ txtValue4: text }) }}
+                            onChangeText={(text) => { this.setState({ aa5: text }) }}
                         >{this.state.wclass}</TextInput>
                     </View>
-                    <View style={styles.listcontent}>
-                        <Text style={{ fontSize: 18 }}>学校</Text>
-                        <TextInput
-
-                            placeholder="请输入学校"
-                            placeholderTextColor='gray'
-                            style={styles.inputconent}
-                            onChangeText={(text) => { this.setState({ txtValue5: text }) }}
-
-                        >{this.state.wschool}</TextInput>
-                    </View>
-                    <View style={styles.listcontent}>
-                        <Text style={{ fontSize: 18 }}>生日</Text>
-                        <TextInput
-
-                            placeholder="请输入生日"
-                            placeholderTextColor='gray'
-                            style={styles.inputconent}
-                            onChangeText={(text) => { this.setState({ txtValue5: text }) }}
-
-                        >{this.state.wschool}</TextInput>
-                    </View>
-                    <TouchableOpacity style={styles.baocun}><Text style={{ color: 'white', fontSize: 16 }}>保存</Text></TouchableOpacity>
+                    
+                    <TouchableOpacity style={styles.baocun} onPress={this.baocun}><Text style={{ color: 'white', fontSize: 16 }}>保存</Text></TouchableOpacity>
                 </View>
 
             </View>

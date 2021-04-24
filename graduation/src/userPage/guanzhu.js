@@ -5,25 +5,29 @@ import { FlatList } from 'react-native-gesture-handler'
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 const list=[
-    {name:'22222'},
-    {name:'11111'},
-    {name:'112333'}
+    {name:'傻傻',img:require('../../assets/zt3.jpg'),txt:'已关注'},
+    {name:'略略',img:require('../../assets/zt2.jpg'),txt:'已关注'},
+    {name:'不长肉',img:require('../../assets/zt5.jpg'),txt:'已关注'},
+    {name:'切切',img:require('../../assets/z8.jpg'),txt:'已关注'},
+    {name:'东东',img:require('../../assets/z9.jpg'),txt:'已关注'},
+    {name:'蒙蒙',img:require('../../assets/zt6.jpg'),txt:'已关注'}
 ]
 export default class guanzhu extends Component {
+
     render() {
         return (
            <View>
               <FlatList
               data={list}
-              renderItem={({item})=>(
+              renderItem={({item,index})=>(
                   <TouchableOpacity style={styles.zong}>
                       <View style={styles.t1}>
-                          <Image style={styles.t4} source={require('../../assets/z1.jpg')}></Image>
+                          <Image style={styles.t4} source={item.img}></Image>
                       </View>
                       <View style={styles.t2}><Text>{item.name}</Text></View>
                       <View style={styles.t3}>
-                          <TouchableOpacity style={styles.t5}>
-                              <Text>已关注</Text>
+                          <TouchableOpacity style={styles.t5} onPress={()=>this.dianji(index)}>
+                              <Text>{item.txt}</Text>
                           </TouchableOpacity>
                       </View>
                   </TouchableOpacity>
