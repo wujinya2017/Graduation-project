@@ -24,7 +24,8 @@ export default class find extends Component {
             modalVisible3: false,
             su_id: '',
             content: '',
-            num: ''
+            num: '',
+            use_name:''
 
         }
     }
@@ -165,10 +166,23 @@ export default class find extends Component {
            Alert.alert('请填写评论内容在提交')
        }
        else{
+        fetch(`http://81.70.101.193:8005/get_phone/${this.state.use_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'text/plain; charset=UTF-8'
+            }
+        }).then((res) => res.json())
+        .then((res)=>{
+            this.setState({
+                use_name:res.data[0].use_name
+            })
+        })
+        
         var a = {
             usr_id: this.state.use_id,
             su_id: this.state.su_id,
-            content: this.state.content
+            content: this.state.content,
+            use_name:this.state.use_name
         }
         fetch(`http://81.70.101.193:8005/z_addpinglun`, {
             method: 'POST',
@@ -232,7 +246,7 @@ render() {
                     <FlatList
                         data={this.state.tiezi}
                         renderItem={({ item }) => (
-                            <TouchableOpacity style={{ alignItems: 'center' }}>
+                            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => Actions.contents({ 'contentId': item.su_id })}>
                                 <View style={{ height: 200, width: '98%', marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
                                     <View style={{ paddingLeft: 20, paddingTop: 10, flexDirection: 'row' }}>
                                         <View>
