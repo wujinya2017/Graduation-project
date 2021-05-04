@@ -45,10 +45,10 @@ export default class huifu extends Component {
                              <View>
                                  <TouchableOpacity  onPress={() => Actions.huifu_content({ 'contentId': item.su_id })} style={{height:80,width:'100%',alignItems:'center',backgroundColor:'white',marginTop:20,flexDirection:'row',borderWidth:3,borderColor:'#A7BCF0'}}>
                                      <View style={{width:'20%'}}>
-                                         <Image source={require('../../assets/zping1.png')} style={{width:80,height:80}}></Image>
+                                         <Image source={require('../../assets/zping1.png')} style={{width:60,height:60}}></Image>
                                      </View>
                                      <View>
-                                         <Text style={{fontSize:25}} numberOfLines={1}>{item.content}</Text>
+                                         <Text style={{fontSize:25}} numberOfLines={1}>{item.content ? (item.content.length > 14? item.content.substr(0, 13) + '...' : item.content) : ''}》</Text>
                                      </View>
                                  </TouchableOpacity>
                              </View>

@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         marginLeft: 15 * s
     },
     b: {
-        height: 300 * s,
+        height: 400 * s,
         width: '90%',
         borderWidth: 4,
         borderColor: '#A7BCF0',
@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
         borderRadius: 20 * s
     },
     c: {
-        width: '80%',
-        height: 140 * s,
+        width: '90%',
+        height: 240 * s,
         borderColor: '#adaba3',
         borderWidth: 2
     },

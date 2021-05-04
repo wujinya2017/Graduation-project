@@ -45,15 +45,13 @@ export default class
     render() {
         return (
             <ScrollView>
-                <View>
-            
-                 
+                <View>           
                     <FlatList data={this.state.a}
                         renderItem={({ item }) => (
                             <View style={{ marginTop: 10 }}>
                                 <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#A7BCF0', flexDirection: 'row', height: 60, paddingLeft: 30 }}>
                                     <View style={{ width: '60%' }}>
-                                        <Text>{item.usr_name}:</Text>
+                                        <Text>{item.usr_name==''?'乐乐':item.usr_name}:</Text>
                                         <Text style={{ paddingLeft: 30, paddingTop: 10, fontSize: 20 }}>{item.content}</Text>
                                     </View>
                                     <View>

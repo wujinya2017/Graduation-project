@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, Dimensions, StyleSheet, Image, AsyncStorage,TouchableOpacity,Alert, FlatList, ImageBackground } from 'react-native'
+import { View, Text,ScrollView, Dimensions, StyleSheet, Image, AsyncStorage,TouchableOpacity,Alert, FlatList, ImageBackground } from 'react-native'
 import { Button, Progress, WhiteSpace } from '@ant-design/react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 const list = [
@@ -74,7 +74,7 @@ export default class chuangzuo extends Component {
     render() {
         return (
             <ScrollView>
-            <View>
+         
                 <View style={styles.zong}>
                     <View style={styles.a1}>
                         <View style={styles.a11}>
@@ -137,7 +137,7 @@ export default class chuangzuo extends Component {
                     ></FlatList>
            
                 
-            </View>
+          
             </ScrollView>
         )
     }
@@ -228,12 +228,13 @@ const styles = StyleSheet.create({
     },
     t: {
         width: '95%',
-        height: 170 * s,
+       // height: 170 * s,
         justifyContent: 'center',
         paddingLeft: '4%',
        borderColor:'#A7BCF0',
        borderWidth:1,
-        marginTop: 6 * s,
-        borderRadius: 30 * s
+        marginTop: 16 * s,
+        borderRadius: 30 * s,
+        paddingTop:20*s
     },
 })

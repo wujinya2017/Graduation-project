@@ -40,7 +40,7 @@ export default class user extends Component {
         // console.log(this.state.motto)
         AsyncStorage.getItem('use_id', (err, result) => {
             this.setState({ use_id: JSON.parse(result) })
-            // console.log(this.state.use_id)
+             console.log(this.state.use_id)
 
             //获取座右铭
             fetch(`http://81.70.101.193:8005/getmotto_up/${this.state.use_id}`, {
@@ -50,9 +50,10 @@ export default class user extends Component {
                 }
             }).then((res) => res.json())
                 .then((res) => {
-
+                    console.log('aaa')
+console.log(res)
                     this.setState({ motto: res.data[0].content })
-                    //console.log(this.state.motto)
+                    console.log(this.state.motto)
                 })
 
             //获取昵称

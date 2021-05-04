@@ -253,12 +253,12 @@ export default class find extends Component {
 
                     tabs={tabs}
                 >
-                    <View>
+                 
                         <FlatList
                             data={this.state.tiezi}
                             renderItem={({ item }) => (
-                                <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => Actions.contents({ 'contentId': item.su_id })}>
-                                    <View style={{ height: 200, width: '98%', marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
+                                <TouchableOpacity style={{ alignItems: 'center',flex:1 }} onPress={() => Actions.contents({ 'contentId': item.su_id })}>
+                                    <View style={{ width: '98%', marginTop: 15, borderWidth: 2, borderColor: '#A7BCF0' }}>
                                         <View style={{ paddingLeft: 20, paddingTop: 10, flexDirection: 'row' }}>
                                             <View>
                                                 <Text style={{ fontSize: 18 }}>{item.use_name}</Text>
@@ -327,14 +327,14 @@ export default class find extends Component {
                         >
 
                         </FlatList>
-                    </View>
+                 
 
                     <View>
                         <FlatList
                             data={this.state.my}
                             renderItem={({ item }) => (
                                 <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => Actions.contents({ 'contentId': item.su_id })}>
-                                    <View style={{ height: 200, width: '98%', marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
+                                    <View style={{  width: '98%', marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
                                         <View style={{ paddingLeft: 20, paddingTop: 10 }}>
                                             <Text style={{ fontSize: 18 }}>{item.use_name}</Text>
                                             <Text>{item.state_date}</Text>
