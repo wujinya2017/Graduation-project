@@ -50,6 +50,7 @@ import misspassword from './src/common/misspassword';
 import jihua from './src/userPage/jihua';
 import fabu from './src/SharePage/fabu';
 import contents from './src/userPage/contents';
+import huifucontent from './src/userPage/huifucontent';
 
 const App = () => {
   let [isLogin, setLogin] = useState(false);
@@ -498,6 +499,18 @@ const App = () => {
                   ></Scene>
                   <Scene key='huifu'
                     component={huifu}
+                    title="我的回复"
+                    navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                    titleStyle={{ flex: 1, textAlign: 'center' }}
+                    renderLeftButton={
+                      <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => Actions.pop()}>
+                        <Icon name='left' style={{ color: 'black' }} />
+                      </TouchableOpacity>
+                    }
+
+                  ></Scene>
+                  <Scene key='huifu_content'
+                    component={huifucontent}
                     title="我的回复"
                     navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
                     titleStyle={{ flex: 1, textAlign: 'center' }}

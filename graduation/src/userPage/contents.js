@@ -14,7 +14,8 @@ export default class
         this.state = {
             data: [],
             content: '',
-            a: {}
+            a: {},
+            pinglun:{}
         }
     }
     componentDidMount() {
@@ -30,12 +31,23 @@ export default class
                 //console.log(res.data)
                 this.setState({ a: res.data })
                 // console.log(this.state.a)
+                fetch(`http://81.70.101.193:8005/get_pinglun_content/${this.props.contentId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain; charset=UTF-8'
+                    }
+                }).then((res) => res.json())
+                    .then((res) => {
+                       this.setState({pinglun:res.data})
+                    })
+                
             })
 
     }
     render() {
         return (
-            <View>
+  <ScrollView>
+                <View>
                 <FlatList
                     data={this.state.a}
                     renderItem={({ item }) => (
@@ -58,9 +70,7 @@ export default class
                                         <Text style={{ fontSize: 18 }}>{item.dianzan_num == null ? 0 : item.dianzan_num}</Text>
                                         <Image source={require('../../assets/zdianzan.png')} style={{ width: 20, height: 20, marginLeft: 5 }}></Image>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 30 }} onPress={() => {
-                                        this.setModalVisible3({ su: item.su_id, vi: true, num: item.pinglun_num })
-                                    }}>
+                                    <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 30 }} >
                                         <Text style={{ fontSize: 18 }}>{item.pinglun_num == null ? 0 : item.pinglun_num}</Text>
                                         <Image source={require('../../assets/zpinglun.png')} style={{ width: 20, height: 20, marginLeft: 5 }}></Image>
                                     </TouchableOpacity>
@@ -82,7 +92,24 @@ export default class
                         <Image source={require('../../assets/zpinglun.png')} style={{ width: 50, height: 50, marginLeft: 1 }}></Image>
                     </TouchableOpacity>
                 </View>
+                <FlatList data={this.state.pinglun}
+                renderItem={({item})=>(
+                    <View style={{marginTop:10}}>
+                        <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#A7BCF0',flexDirection:'row',height:60,paddingLeft:30}}>
+                                <View style={{width:'60%'}}>
+                                <Text>{item.usr_name}:</Text>
+                                 <Text style={{paddingLeft:30,paddingTop:10,fontSize:20}}>{item.content}</Text>
+                                </View>
+                                <View>
+                                    <Text>{item.huifu_time}</Text>
+                                </View>
+
+                        </View>
+                    </View>
+                )}
+                ></FlatList>
             </View>
+  </ScrollView>
         )
     }
 }
