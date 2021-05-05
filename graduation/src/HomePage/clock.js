@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   AsyncStorage,
   Alert,
+  ScrollView,
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -24,6 +25,7 @@ export default class clock extends Component {
       percent: 70,
       userid: '',
       targetarr: [],
+      color: '#A7BCF0',
     };
     setInterval(() => {
       this.formatDateTime();
@@ -86,6 +88,7 @@ export default class clock extends Component {
       Alert.alert('提示', '打卡成功');
       this.setState({
         dakasatate: '已打卡',
+        color: 'gray',
       });
     } else if (this.state.dakasatate === '已打卡') {
       Alert.alert('提示', '您已打过卡了哦');
@@ -93,9 +96,23 @@ export default class clock extends Component {
   };
   render() {
     return (
-      <View>
+      <ScrollView>
         <View style={styles.dakaone}>
-          <TouchableOpacity style={styles.dakatwo} onPress={this.wdaka}>
+          <TouchableOpacity
+            style={{
+              width: 250 * s,
+              height: 250 * s,
+              borderRadius: 150 * s,
+              justifyContent: 'center',
+              alignItems: 'center',
+              shadowColor: 'red',
+              shadowOffset: {width: 100 * s, height: 20 * s},
+              shadowOpacity: 0.8,
+              shadowRadius: 6,
+              elevation: 10,
+              backgroundColor: this.state.color,
+            }}
+            onPress={this.wdaka}>
             <Text
               style={{fontSize: 35 * s, color: 'white', marginBottom: 15 * s}}>
               {this.state.dakasatate}
@@ -130,7 +147,15 @@ export default class clock extends Component {
                   {this.state.percent}%
                 </Text>
               </View>
-              <Text style={{marginRight: 10 * s, color: '#A7BCF0',fontSize: 23*s,marginTop: -3*s}}>223分</Text>
+              <Text
+                style={{
+                  marginRight: 10 * s,
+                  color: '#A7BCF0',
+                  fontSize: 23 * s,
+                  marginTop: -3 * s,
+                }}>
+                223分
+              </Text>
             </View>
 
             <Text style={{marginBottom: 10 * s}}>今日目标未完成内容：</Text>
@@ -144,8 +169,8 @@ export default class clock extends Component {
                       borderRadius: 5 * s,
                       borderColor: 'gray',
                       borderWidth: 1 * s,
-                      padding: 5*s,
-                      margin: 5*s,
+                      padding: 5 * s,
+                      margin: 5 * s,
                     }}
                     key={item.id}>
                     {item.windex}. {item.maincontent}
@@ -155,7 +180,7 @@ export default class clock extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -168,17 +193,5 @@ const styles = StyleSheet.create({
     borderBottomColor: 'gray',
     borderBottomWidth: 1 * s,
   },
-  dakatwo: {
-    backgroundColor: '#A7BCF0',
-    width: 250 * s,
-    height: 250 * s,
-    borderRadius: 150 * s,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: 'red',
-    shadowOffset: {width: 100 * s, height: 20 * s},
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
-    elevation: 10,
-  },
+  dakatwo: {},
 });

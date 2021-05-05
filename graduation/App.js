@@ -52,6 +52,7 @@ import fabu from './src/SharePage/fabu';
 import contents from './src/userPage/contents';
 import huifucontent from './src/userPage/huifucontent';
 
+import faxianxiangqing from './src/findPage/faxianxiangqing';
 const App = () => {
   let [isLogin, setLogin] = useState(false);
   // let [isInstall,setInstall] = useState(true);
@@ -267,6 +268,22 @@ const App = () => {
                     title="发现"
                     navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
                     titleStyle={{ flex: 1, textAlign: 'center' }}
+                  />
+                  <Scene
+                    key='faxianxiangqing'
+                    hideTabBar
+                    component={faxianxiangqing}
+                    title='发现'
+                    navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                    renderLeftButton={
+                      <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => Actions.pop()}>
+                        <Icon name='left' style={{ color: 'black' }} />
+                      </TouchableOpacity>
+                    }
+                    titleStyle={{ flex: 1, textAlign: 'center' }}
+                    renderRightButton={
+                      <View style={{ marginRight: 10 }}></View>
+                    }
                   />
                 </Scene>
                 <Scene

@@ -1316,7 +1316,6 @@ export default class addplus extends Component {
             height: 72 * s,
             alignItems: 'center',
             backgroundColor: '#A7BCF0',
-            marginTop: 5 * s,
           }}>
           <TouchableOpacity onPress={() => Actions.pop(this.props.wmubiao())}>
             <Icon name="left" style={{color: 'black', marginLeft: 10 * s}} />

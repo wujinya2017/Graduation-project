@@ -241,10 +241,10 @@ export default class find extends Component {
                     }}
 
                 >
-
+                    <Text>      </Text>
                     <Text style={{ fontSize: 20, marginLeft: 270 * s }}>分享</Text>
 
-                    <TouchableOpacity style={{ marginLeft: 200 }} onPress={() => Actions.fabu()}>
+                    <TouchableOpacity style={{ marginLeft: 180 }} onPress={() => Actions.fabu()}>
                         <Image style={{ height: 30, width: 30 }} source={require('../../assets/zfabu.png')}></Image>
                     </TouchableOpacity>
 
