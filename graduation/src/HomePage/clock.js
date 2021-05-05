@@ -142,11 +142,10 @@ export default class clock extends Component {
                       fontSize: 22 * s,
                       width: 600 * s,
                       borderRadius: 5 * s,
-                      borderColor: '#A7BCF0',
+                      borderColor: 'gray',
                       borderWidth: 1 * s,
                       padding: 5*s,
                       margin: 5*s,
-                      backgroundColor: '#A7BCF0'
                     }}
                     key={item.id}>
                     {item.windex}. {item.maincontent}

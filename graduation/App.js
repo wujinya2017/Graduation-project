@@ -215,7 +215,7 @@ const App = () => {
                     hideTabBar
                     component={addplus}
                     title="成长目标"
-                    // hideNavBar
+                    hideNavBar
                     navigationBarStyle={{backgroundColor: '#A7BCF0'}}
                     renderLeftButton={
                       <TouchableOpacity

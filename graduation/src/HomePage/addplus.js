@@ -26,6 +26,8 @@ import {
   Alert,
 } from 'react-native';
 
+import {Actions} from 'react-native-router-flux';
+
 const {width} = Dimensions.get('window');
 const s = width / 640;
 
@@ -1308,9 +1310,18 @@ export default class addplus extends Component {
   render() {
     return (
       <View style={{backgroundColor: '#F5F5F5'}}>
-        <View style={{flexDirection: 'row'}}>
-          <Icon name="left" />
-          <Text>成长目标</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            height: 72 * s,
+            alignItems: 'center',
+            backgroundColor: '#A7BCF0',
+            marginTop: 5 * s,
+          }}>
+          <TouchableOpacity onPress={() => Actions.pop(this.props.wmubiao())}>
+            <Icon name="left" style={{color: 'black', marginLeft: 10 * s}} />
+          </TouchableOpacity>
+          <Text style={{fontSize: 27 * s, marginLeft: 220 * s}}>成长目标</Text>
           <Text></Text>
         </View>
         <View
