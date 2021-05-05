@@ -67,32 +67,36 @@ export default class caogao extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1,width: '98%'}}>
-            <FlatList
-                data={this.state.caogao}
-                renderItem={({ item }) => (                  
-                        <View style={{ alignItems: 'center',  marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
+            <View style={{ backgroundColor: '#A7BCF0' }}>
 
-                            <View style={{ paddingLeft: 20, paddingTop: 10 }}>
-                                <Text style={{ fontSize: 18 }}>{item.use_name}</Text>
-                                <Text>{item.state_date}</Text>
+                <FlatList
+                    data={this.state.caogao}
+                    renderItem={({ item }) => (
+                        <View style={{paddingLeft:10}}>
+                            <View style={{  marginTop: 5, width: '98%', borderWidth: 2, borderColor: '#A7BCF0', backgroundColor: 'white', borderRadius: 10 }}>
+
+                                <View style={{ paddingTop: 10,paddingLeft:20, flexDirection: 'row' }}>
+                                    <Text style={{ fontSize: 20 }}>{item.use_name}</Text>
+                                    <Text style={{marginLeft:20,fontSize:18}}>{item.state_date}</Text>
+                                </View>
+                                <View style={{ paddingTop: 10, paddingLeft: 20 }}>
+                                    <Text style={{fontSize:20,lineHeight:30}}>{item.content}</Text>
+                                </View>
+
+                                <TouchableOpacity style={{ marginLeft: '87%' }} onPress={() => this.del(item.su_id)}>
+                                    <Image source={require('../../assets/zla.png')} style={{ width: 30, height: 30, marginLeft: 5 }}></Image>
+                                </TouchableOpacity>
+
+
                             </View>
-                            <View style={{ paddingTop: 10, paddingLeft: 20 }}>
-                                <Text>{item.content}</Text>
-                            </View>
-
-                            <TouchableOpacity style={{ marginLeft: '87%' }} onPress={() => this.del(item.su_id)}>
-                                <Image source={require('../../assets/zla.png')} style={{ width: 30, height: 30, marginLeft: 5 }}></Image>
-                            </TouchableOpacity>
-
-
                         </View>
-                   
-               
-                )}
-            >
 
-            </FlatList>
+
+                    )}
+                >
+
+                </FlatList>
+
             </View>
 
 

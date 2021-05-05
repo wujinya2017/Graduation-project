@@ -15,7 +15,7 @@ export default class
             data: [],
             content: '',
             a: {content: '暂无评论!' },
-            pinglun: {}
+            pinglun: {content: '暂无评论!'}
         }
     }
     componentDidMount() {
@@ -38,8 +38,15 @@ export default class
                     }
                 }).then((res) => res.json())
                     .then((res) => {
-                        console.log(res)
-                        this.setState({ pinglun: res.data })
+                        console.log(res.data)
+                        if(res.data===[])
+                        {
+                           console.log('1')
+                        }
+                        else{
+                            this.setState({ pinglun: res.data })
+                        }
+                        
                     })
 
             })
@@ -53,7 +60,7 @@ export default class
                         data={this.state.a}
                         renderItem={({ item }) => (
                             <TouchableOpacity style={{ alignItems: 'center' }} >
-                                <View style={{ height: 200, width: '98%', marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
+                                <View style={{ height: 200, width: '98%',marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
                                     <View style={{ paddingLeft: 20, paddingTop: 10, flexDirection: 'row' }}>
                                         <View>
                                             <Text style={{ fontSize: 18 }}>{item.use_name}</Text>
@@ -93,12 +100,13 @@ export default class
                             <Image source={require('../../assets/zpinglun.png')} style={{ width: 50, height: 50, marginLeft: 1 }}></Image>
                         </TouchableOpacity>
                     </View>
+    
                     <FlatList data={this.state.pinglun}
                         renderItem={({ item }) => (
-                            <View style={{ marginTop: 10 }}>
-                                <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#A7BCF0', flexDirection: 'row', height: 60, paddingLeft: 30 }}>
+                            <View style={{ marginTop: 20 ,backgroundColor:'#A7BCF0',alignItems:'center',paddingTop:5,paddingBottom:5}}>
+                                <View style={{ flexDirection: 'row', backgroundColor:'white',width:'99%',borderRadius:10,borderBottomWidth: 1, borderBottomColor: '#A7BCF0', flexDirection: 'row', height: 60, paddingLeft: 30 }}>
                                     <View style={{ width: '60%' }}>
-                                        <Text>{item.usr_name}:</Text>
+                                        <Text style={{fontSize:18}}>{item.usr_name==''?'可可':item.usr_name}:</Text>
                                         <Text style={{ paddingLeft: 30, paddingTop: 10, fontSize: 20 }}>{item.content}</Text>
                                     </View>
                                     <View>

@@ -257,19 +257,20 @@ export default class find extends Component {
                         <FlatList
                             data={this.state.tiezi}
                             renderItem={({ item }) => (
-                                <TouchableOpacity style={{ alignItems: 'center',flex:1 }} onPress={() => Actions.contents({ 'contentId': item.su_id })}>
-                                    <View style={{ width: '98%', marginTop: 15, borderWidth: 2, borderColor: '#A7BCF0' }}>
+                               <View style={{backgroundColor:'#A7BCF0'}}>
+                                    <TouchableOpacity style={{ alignItems: 'center',flex:1 }} onPress={() => Actions.contents({ 'contentId': item.su_id })}>
+                                    <View style={{ width: '98%',height:280, backgroundColor:'white',marginTop: 15, borderWidth: 2, borderColor: '#A7BCF0' ,borderRadius:10}}>
                                         <View style={{ paddingLeft: 20, paddingTop: 10, flexDirection: 'row' }}>
                                             <View>
-                                                <Text style={{ fontSize: 18 }}>{item.use_name}</Text>
+                                                <Text style={{ fontSize: 20 }}>{item.use_name}</Text>
                                                 <Text>{item.state_date}</Text>
                                             </View>
                                             <TouchableOpacity style={{ marginLeft: '50%' }} onPress={() => this.guanzhu(item.su_id)}>
-                                                <Text style={{ fontSize: 14 }}>{item.guanzhu}</Text>
+                                                <Text style={{ fontSize: 16 }}>{item.guanzhu}</Text>
                                             </TouchableOpacity>
                                         </View>
-                                        <View style={{ paddingTop: 10, paddingLeft: 20, height: 110 }}>
-                                            <Text>{item.content}</Text>
+                                        <View style={{ paddingTop: 10, paddingLeft: 20, height: 180 }}>
+                                            <Text style={{fontSize:18}}>{item.content}</Text>
                                         </View>
                                         <View style={{ marginLeft: '60%', flexDirection: 'row' }}>
                                             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => this.dianzan(item)}>
@@ -323,6 +324,7 @@ export default class find extends Component {
                                         </View>
                                     </View>
                                 </TouchableOpacity>
+                               </View>
                             )}
                         >
 
@@ -333,14 +335,15 @@ export default class find extends Component {
                         <FlatList
                             data={this.state.my}
                             renderItem={({ item }) => (
+                                <View style={{backgroundColor:'#A7BCF0'}}>
                                 <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => Actions.contents({ 'contentId': item.su_id })}>
-                                    <View style={{  width: '98%', marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0' }}>
+                                    <View style={{  width: '98%',backgroundColor:'white', height:280,marginTop: 5, borderWidth: 2, borderColor: '#A7BCF0',borderRadius:10 }}>
                                         <View style={{ paddingLeft: 20, paddingTop: 10 }}>
-                                            <Text style={{ fontSize: 18 }}>{item.use_name}</Text>
+                                            <Text style={{ fontSize: 20 }}>{item.use_name}</Text>
                                             <Text>{item.state_date}</Text>
                                         </View>
-                                        <View style={{ paddingTop: 10, paddingLeft: 20, height: 110 }}>
-                                            <Text>{item.content}</Text>
+                                        <View style={{ paddingTop: 10, paddingLeft: 20, height: 180 }}>
+                                            <Text style={{fontSize:18}}>{item.content}</Text>
                                         </View>
                                         <View style={{ marginLeft: '60%', flexDirection: 'row' }}>
                                             <TouchableOpacity style={{ flexDirection: 'row' }}>
@@ -358,6 +361,7 @@ export default class find extends Component {
                                         </View>
                                     </View>
                                 </TouchableOpacity>
+                                </View>
                             )}
                         >
 

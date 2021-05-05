@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, Dimensions, StyleSheet, Image, FlatList, AsyncStorage, Alert, TouchableOpacity } from 'react-native'
+import { View, ScrollView,Text, TextInput, Dimensions, StyleSheet, Image, FlatList, AsyncStorage, Alert, TouchableOpacity } from 'react-native'
 import { List, TextareaItem, PickerView, Drawer } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux';
 import {
@@ -7,13 +7,15 @@ import {
 
     WhiteSpace,
 } from '@ant-design/react-native'
+
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 
 
 export default class motto extends Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+      
+        super(props);
         this.state = {
             diaplay: true,
             text: '',
@@ -39,6 +41,7 @@ export default class motto extends Component {
 
     //获取登录用户的唯一标识id
     componentDidMount() {
+        console.log(this.props.refresh())
         AsyncStorage.getItem('use_id', (err, result) => {
             this.setState({ use_id: JSON.parse(result) })
             // console.log(this.state.use_id)
@@ -67,6 +70,7 @@ export default class motto extends Component {
     //发布座右铭
     fabu = () => {
         //console.log(this.state.text)
+      // console.log(this.props.refersh1)
         if (this.state.text == '') {
             Alert.alert('提示', '请输入座右铭后在提交！')
         }
@@ -96,7 +100,7 @@ export default class motto extends Component {
                         .then((res) => {
                             //console.log(res)
                             this.setState({ list1: res.data })
-                            console.log(this.state.list1)
+                           // console.log(this.state.list1)
                         })
                 })
 
@@ -134,7 +138,26 @@ export default class motto extends Component {
     }
     render() {
         return (
+            <ScrollView>
             <View>
+            <View
+                    style={{
+                        width: '100%',
+                        height: 73 * s,
+                        backgroundColor: '#A7BCF0',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}
+
+                >
+                  <TouchableOpacity style={{marginLeft:5}} onPress={()=>Actions.pop(this.props.refresh())}>
+                             <Image source={require('../../assets/zleft.png')} style={{width:25,height:25}}></Image>
+                         </TouchableOpacity>
+                    <Text style={{ fontSize: 20, marginLeft: 240 * s }}>发布座右铭</Text>
+
+              
+
+                </View>
                 <View style={styles.a1}>
                     <View>
                         <TextareaItem
@@ -178,6 +201,7 @@ export default class motto extends Component {
                     </View>
                 </View>
             </View>
+            </ScrollView>
         )
     }
 }
@@ -227,11 +251,11 @@ const styles = StyleSheet.create({
         borderColor: '#adaba3',
         borderWidth: 2,
         flexDirection: 'column',
-        height: 90 * s,
+        height: 110 * s,
         marginTop: 33 * s,
-        width: '95%',
+        width: '98%',
         borderRadius: 30 * s,
-      
+       backgroundColor:'white',
         paddingLeft: 15 * s
     },
 

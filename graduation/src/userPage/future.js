@@ -42,14 +42,17 @@ export default class future extends Component {
                                 <TextareaItem value={this.state.a} rows={8} placeholder="请点击右下角去给未来的自己写一封信吧！！！" />
                             </List>
                         </View>
-                        <View style={styles.d}>
+                        {/* <View style={styles.d}>
                             <Text style={{color:'#31749a',fontSize:16}}>还未创建？去创建</Text>
                             <TouchableOpacity onPress={()=>Actions.jihua()}>
                                 <Image source={require('../../assets/zgo.png')} style={{height:80*s,width:80*s,marginLeft:20*s}}></Image>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
+                <TouchableOpacity style={{alignItems:'center',marginTop:'40%'}}  onPress={()=>Actions.jihua()}>
+                    <Image style={{height:60,width:60}} source={require('../../assets/z11.png')}></Image>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
     },
     a2: {
         width: 5 * s,
-        height: 170 * s,
+        height: 200 * s,
         backgroundColor: 'red'
     },
     a3:
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     c: {
-        width: 304 * s,
+        height: 304 * s,
         width: 486 * s,
         borderWidth: 3,
         borderColor: 'yellow'

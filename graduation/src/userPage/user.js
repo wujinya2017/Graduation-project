@@ -79,6 +79,22 @@ console.log(res)
 
     }
 
+    refre=()=>{
+           //获取座右铭
+           fetch(`http://81.70.101.193:8005/getmotto_up/${this.state.use_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'text/plain; charset=UTF-8'
+            }
+        }).then((res) => res.json())
+            .then((res) => {
+                //console.log('aaa')
+              //console.log(res)
+                this.setState({ motto: res.data[0].content })
+             //   console.log(this.state.motto)
+            })
+    }
+
     //退出登录
     tuichu = () => {
         Alert.alert('提示', '确定要退出登录吗！', [
@@ -103,7 +119,7 @@ console.log(res)
                             </NoticeBar>
                         </View>
                         <View style={{ width: '7%', height: 37, backgroundColor: '#fffada' }}>
-                            <Icon name='edit' size='lg' color='black' onPress={() => Actions.motto()}></Icon>
+                            <Icon name='edit' size='lg' color='black' onPress={() => Actions.motto({refresh:()=>{this.refre()}})}></Icon>
                         </View>
                     </View>
                     <View style={{ height: 230, width: '100%', backgroundColor: '#ded6b2' }}>

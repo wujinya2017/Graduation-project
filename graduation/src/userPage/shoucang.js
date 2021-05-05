@@ -111,13 +111,13 @@ export default class shoucang extends Component {
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={styles.b}>
                                         <Text style={{ fontSize: 18 }}>{item.title}</Text>
-                                        <View style={{ marginTop: 10 * s, flexDirection: 'row' }}>
+                                        <View style={{ marginTop: 1* s, flexDirection: 'row' }}>
                                             {/* <Image style={styles.img1} source={require('../../assets/1.jpg')}></Image> */}
-                                            <Text style={{ marginLeft: 20 * s, fontSize: 16, color: '#6A5ACD' }}>{item.use_name}</Text>
-                                            <Text style={{ marginLeft: 20 * s, fontSize: 16, color: '#6A5ACD' }}>{item.state_date}</Text>
+                                            <Text style={{ marginLeft: 20 * s, fontSize: 19, color: 'black' }}>{item.use_name}</Text>
+                                            <Text style={{ marginLeft: 20 * s, fontSize: 19, color: 'black' }}>{item.state_date}</Text>
                                         </View>
                                         <View style={styles.c}>
-                                            <Text>{item.content}</Text>
+                                            <Text style={{fontSize:20}}>{item.content}</Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', width: 100 * s, marginLeft: '30%' }}>
                                             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => this.dianzan(item)}>
@@ -173,13 +173,14 @@ const styles = StyleSheet.create({
     },
     b: {
         height: 400 * s,
-        width: '90%',
+        width: '96%',
         borderWidth: 4,
         borderColor: '#A7BCF0',
-        marginTop: 1 * s,
-        paddingLeft: '10%',
+        backgroundColor:'#A7BCF0',
+        marginTop: 10 * s,
+        //paddingLeft: '10%',
         flexDirection: 'column',
-        paddingTop: '1%'
+        paddingTop: 1
     },
     img1: {
         width: 40 * s,
@@ -187,10 +188,13 @@ const styles = StyleSheet.create({
         borderRadius: 20 * s
     },
     c: {
-        width: '90%',
-        height: 240 * s,
+        width: '98%',
+        height: 290 * s,
         borderColor: '#adaba3',
-        borderWidth: 2
+        borderWidth: 2,
+        backgroundColor:'white',
+        borderRadius:10,
+        padding:5
     },
     img2: {
         width: 30 * s,

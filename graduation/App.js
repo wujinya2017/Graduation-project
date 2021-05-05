@@ -392,13 +392,14 @@ const App = () => {
                   <Scene key='motto'
                     component={motto}
                     title="我的座右铭"
-                    navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
-                    titleStyle={{ flex: 1, textAlign: 'center' }}
-                    renderLeftButton={
-                      <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => Actions.pop()}>
-                        <Icon name='left' style={{ color: 'black' }} />
-                      </TouchableOpacity>
-                    }
+                    hideNavBar
+                    // navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                    // titleStyle={{ flex: 1, textAlign: 'center' }}
+                    // renderLeftButton={
+                    //   <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => Actions.pop()}>
+                    //     <Icon name='left' style={{ color: 'black' }} />
+                    //   </TouchableOpacity>
+                    //}
 
                   ></Scene>
                   <Scene key='chuangzuo'
