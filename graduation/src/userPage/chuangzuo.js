@@ -74,8 +74,9 @@ export default class chuangzuo extends Component {
     render() {
         return (
             <ScrollView>
-         
-                <View style={styles.zong}>
+         <View style={{backgroundColor:'#F8F8FF',width:'100%',height:'100%'}}>
+             
+         <View style={styles.zong}>
                     <View style={styles.a1}>
                         <View style={styles.a11}>
                             <Image style={styles.a11} source={require('../../assets/1.jpg')}></Image>
@@ -137,6 +138,7 @@ export default class chuangzuo extends Component {
                     ></FlatList>
            
                 
+         </View>
           
             </ScrollView>
         )
@@ -149,7 +151,8 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor:'white'
     },
     a1: {
         flexDirection: 'row'
@@ -235,6 +238,7 @@ const styles = StyleSheet.create({
        borderWidth:1,
         marginTop: 16 * s,
         borderRadius: 30 * s,
-        paddingTop:20*s
+        paddingTop:20*s,
+        backgroundColor:'white'
     },
 })

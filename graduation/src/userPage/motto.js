@@ -139,7 +139,7 @@ export default class motto extends Component {
     render() {
         return (
             <ScrollView>
-            <View>
+            <View style={{backgroundColor:'#F8F8FF',width:'100%',height:'100%'}}>
             <View
                     style={{
                         width: '100%',

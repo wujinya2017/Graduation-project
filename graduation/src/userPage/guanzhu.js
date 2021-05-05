@@ -16,7 +16,7 @@ export default class guanzhu extends Component {
 
     render() {
         return (
-           <View>
+           <View style={{backgroundColor:'#F8F8FF',width:'100%',height:'100%'}}>
               <FlatList
               data={list}
               renderItem={({item,index})=>(
@@ -43,7 +43,8 @@ const styles=StyleSheet.create({
             borderWidth:2,
             flexDirection:'row',
             height:70*s,
-            marginTop:13*s
+            marginTop:13*s,
+            backgroundColor:'white'
     },
     t1:{
         width:'10%',

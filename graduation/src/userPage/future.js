@@ -31,7 +31,7 @@ export default class future extends Component {
     }
     render() {
         return (
-            <View>
+            <View style={{backgroundColor:'#F8F8FF',width:'100%',height:'100%'}}>
                 <View style={styles.a}>
                     <View style={styles.a1}></View>
                     <View style={styles.a2}></View>
