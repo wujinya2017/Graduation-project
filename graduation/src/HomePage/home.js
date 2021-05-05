@@ -37,23 +37,23 @@ export default class home extends Component {
         });
     });
   }
-  // componentDidUpdate() {
-  //   AsyncStorage.getItem('use_id', (error, result) => {
-  //     this.setState({userid: JSON.parse(result)});
-  //     fetch(`http://81.70.101.193:8006/wtarget/${this.state.userid}`)
-  //       .then((res) => res.json())
-  //       .then((res) => {
-  //         this.setState({
-  //           targetarr: res.data,
-  //         });
-  //       });
-  //   });
-  // }
+  wmubiao = () => {
+    AsyncStorage.getItem('use_id', (error, result) => {
+      this.setState({userid: JSON.parse(result)});
+      fetch(`http://81.70.101.193:8006/wtarget/${this.state.userid}`)
+        .then((res) => res.json())
+        .then((res) => {
+          this.setState({
+            targetarr: res.data,
+          });
+        });
+    });
+  };
   render() {
     return (
       <ScrollView>
         {/* 轮播图 */}
-        <Swiper autoplay="true" style={{height: 260 * s}}>
+        <Swiper autoplay="true" style={{height: 320 * s}}>
           <View>
             <Image style={styles.img} source={require('../../assets/6.jpg')} />
           </View>
@@ -74,17 +74,13 @@ export default class home extends Component {
         <View style={{padding: 10 * s}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={{fontSize: 26 * s}}>今日目标</Text>
-            <TouchableOpacity onPress={() => Actions.addplus()}>
-              <Icon name="plus" style={{color: 'black'}} />
-            </TouchableOpacity>
           </View>
           <View style={{alignItems: 'center'}}>
             <ScrollView style={styles.textview}>
               {this.state.targetarr.map((item) => (
-                <View>
-                  <Text style={{fontSize: 22 * s}} key={item.id}>
-                    {item.maincontent}
-                  </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{fontSize: 22 * s}}>{item.windex}.</Text>
+                  <Text style={{fontSize: 22 * s}}>{item.maincontent}</Text>
                 </View>
               ))}
             </ScrollView>
@@ -94,7 +90,7 @@ export default class home extends Component {
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity
             style={styles.firstview}
-            onPress={() => Actions.growriji()}>
+            onPress={() => Actions.growplan()}>
             <View>
               <Text style={{fontSize: 30 * s}}>成长日记</Text>
               <Text>记录成长的足迹，留下美好时光</Text>
@@ -104,7 +100,7 @@ export default class home extends Component {
               source={require('../../assets/8.gif')}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.firstview}>
+          {/* <TouchableOpacity style={styles.firstview}>
             <View>
               <Text style={{fontSize: 30 * s}}>成长分析</Text>
               <Text>迎接人生挑战的契机</Text>
@@ -113,12 +109,12 @@ export default class home extends Component {
               style={styles.secondimg}
               source={require('../../assets/7.gif')}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.firstview}
-            onPress={() => Actions.growplan()}>
+            onPress={() => Actions.addplus({wmubiao: ()=>{this.wmubiao()}})}>
             <View>
-              <Text style={{fontSize: 30 * s}}>成长计划</Text>
+              <Text style={{fontSize: 30 * s}}>成长目标</Text>
               <Text>脚踩西瓜皮，滑到哪里算哪里？</Text>
             </View>
             <Image
@@ -140,7 +136,7 @@ const styles = StyleSheet.create({
   },
   textview: {
     width: 550 * s,
-    height: 200 * s,
+    height: 280 * s,
     borderWidth: 2 * s,
     marginTop: 10 * s,
     borderTopLeftRadius: 15 * s,

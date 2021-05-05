@@ -545,16 +545,15 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="1.您健康饮食的主要目标是？"
+              title="1.您喝水的主要目标是？"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
               <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>营养素摄入充足平衡</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>清脂肪</Checkbox>
                 <Checkbox style={{margin: 6 * s}}>预防疾病</Checkbox>
                 <Checkbox style={{margin: 6 * s}}>改善生活</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>保持理想体重</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>丰富饮食</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>调整内分泌</Checkbox>
                 <View style={{alignItems: 'center', marginTop: 50 * s}}>
                   <TouchableOpacity
                     onPress={() => this.secondxiayibu()}
@@ -579,7 +578,7 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="2.您对自己的身材或饮食习惯是否满意？"
+              title="2.您对自己的喝水习惯是否满意？"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
@@ -632,18 +631,14 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="3.您会随身携带以下哪些食物？"
+              title="3.您一天大概会喝多少水？"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
               <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>水果</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>饼干</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>巧克力</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>其他零食</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>不带吃的</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>水</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>代餐食品</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>1000ml~1500ml</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>1500ml~2000ml</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>2000ml~2500ml</Checkbox>
                 <View
                   style={{
                     alignItems: 'center',
@@ -690,129 +685,7 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="4.您使用过什么保持身材的方法？"
-              thumbStyle={{width: 100 * s}}
-            />
-            <Card.Body>
-              <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>运动</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>吃减肥药</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>每顿少吃一点</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>运动+控制饮食</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>
-                  自认为有效的减肥偏方
-                </Checkbox>
-                <Checkbox style={{margin: 6 * s}}>参加减肥训练营</Checkbox>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    marginTop: 50 * s,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => this.secondshangyibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginRight: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      上一步
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.secondxiayibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginLeft: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      下一步
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Card.Body>
-          </Card>
-        );
-      case 4:
-        return (
-          <Card>
-            <Card.Header
-              title="5.对一款健康食品，您会更倾向于什么口味？"
-              thumbStyle={{width: 100 * s}}
-            />
-            <Card.Body>
-              <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>无味</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>橙子</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>西瓜</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>草莓</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>葡萄</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>芒果</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>柠檬</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>西柚</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>香蕉</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>桃子</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>蓝莓</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>猕猴桃</Checkbox>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    marginTop: 50 * s,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => this.secondshangyibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginRight: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      上一步
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.secondxiayibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginLeft: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      下一步
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Card.Body>
-          </Card>
-        );
-      case 5:
-        return (
-          <Card>
-            <Card.Header
-              title="6.来制定您的健康饮食目标吧！"
+              title="4.来制定您的健康饮食目标吧！"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
@@ -858,7 +731,7 @@ export default class addplus extends Component {
             </Card.Body>
           </Card>
         );
-      case 6:
+      case 4:
         return (
           <View
             style={{
@@ -879,8 +752,8 @@ export default class addplus extends Component {
                   borderBottomWidth: 1 * s,
                   borderColor: 'gray',
                 }}>
-                <Text style={{fontSize: 30 * s}}>您的健康饮食计划</Text>
-                <Text style={{fontSize: 25 * s}}> A balanced diet</Text>
+                <Text style={{fontSize: 30 * s}}>您的喝水计划</Text>
+                <Text style={{fontSize: 25 * s}}> Water Tracker</Text>
               </View>
               <Image
                 source={require('../../assets/18.jpg')}
@@ -943,16 +816,16 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="1.您健康饮食的主要目标是？"
+              title="1.您打算早上几点起床？"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
               <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>营养素摄入充足平衡</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>预防疾病</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>改善生活</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>保持理想体重</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>丰富饮食</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>5点</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>6点</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>7点</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>8点</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>9点</Checkbox>
                 <View style={{alignItems: 'center', marginTop: 50 * s}}>
                   <TouchableOpacity
                     onPress={() => this.thirdxiayibu()}
@@ -977,7 +850,7 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="2.您对自己的身材或饮食习惯是否满意？"
+              title="2.您对自己的起床时间是否满意？"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
@@ -1030,18 +903,15 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="3.您会随身携带以下哪些食物？"
+              title="3.您起床后打算做什么开启一天的美好生活？"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
               <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>水果</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>饼干</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>巧克力</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>其他零食</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>不带吃的</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>水</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>代餐食品</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>吃早餐</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>瑜伽</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>收拾房间</Checkbox>
+                <Checkbox style={{margin: 6 * s}}>欣赏音乐</Checkbox>
                 <View
                   style={{
                     alignItems: 'center',
@@ -1088,129 +958,7 @@ export default class addplus extends Component {
         return (
           <Card>
             <Card.Header
-              title="4.您使用过什么保持身材的方法？"
-              thumbStyle={{width: 100 * s}}
-            />
-            <Card.Body>
-              <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>运动</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>吃减肥药</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>每顿少吃一点</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>运动+控制饮食</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>
-                  自认为有效的减肥偏方
-                </Checkbox>
-                <Checkbox style={{margin: 6 * s}}>参加减肥训练营</Checkbox>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    marginTop: 50 * s,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => this.thirdshangyibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginRight: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      上一步
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.thirdxiayibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginLeft: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      下一步
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Card.Body>
-          </Card>
-        );
-      case 4:
-        return (
-          <Card>
-            <Card.Header
-              title="5.对一款健康食品，您会更倾向于什么口味？"
-              thumbStyle={{width: 100 * s}}
-            />
-            <Card.Body>
-              <View style={{height: 640 * s, marginTop: 10 * s}}>
-                <Checkbox style={{margin: 6 * s}}>无味</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>橙子</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>西瓜</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>草莓</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>葡萄</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>芒果</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>柠檬</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>西柚</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>香蕉</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>桃子</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>蓝莓</Checkbox>
-                <Checkbox style={{margin: 6 * s}}>猕猴桃</Checkbox>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    marginTop: 50 * s,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => this.thirdshangyibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginRight: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      上一步
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.thirdxiayibu()}
-                    style={{
-                      width: 250 * s,
-                      height: 70 * s,
-                      backgroundColor: '#A7BCF0',
-                      borderRadius: 4 * s,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginLeft: 15 * s,
-                    }}>
-                    <Text style={{fontSize: 25 * s, color: 'white'}}>
-                      下一步
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Card.Body>
-          </Card>
-        );
-      case 5:
-        return (
-          <Card>
-            <Card.Header
-              title="6.来制定您的健康饮食目标吧！"
+              title="4.来制定您的早起目标吧！"
               thumbStyle={{width: 100 * s}}
             />
             <Card.Body>
@@ -1256,7 +1004,7 @@ export default class addplus extends Component {
             </Card.Body>
           </Card>
         );
-      case 6:
+      case 4:
         return (
           <View
             style={{
@@ -1277,8 +1025,8 @@ export default class addplus extends Component {
                   borderBottomWidth: 1 * s,
                   borderColor: 'gray',
                 }}>
-                <Text style={{fontSize: 30 * s}}>您的健康饮食计划</Text>
-                <Text style={{fontSize: 25 * s}}> A balanced diet</Text>
+                <Text style={{fontSize: 30 * s}}>您的早起计划</Text>
+                <Text style={{fontSize: 25 * s}}> Early Rising</Text>
               </View>
               <Image
                 source={require('../../assets/18.jpg')}
@@ -1303,7 +1051,7 @@ export default class addplus extends Component {
                     Cal
                   </Text>
                 </View>
-                <Text>Calories Intake</Text>
+                <Text>Get up</Text>
                 <Progress
                   percent={50}
                   style={{marginTop: 10 * s, backgroundColor: 'white'}}
@@ -1543,6 +1291,7 @@ export default class addplus extends Component {
             id: res.data[0].use_id,
             username: res.data[0].use_name,
             maincontent: this.state.textareaval,
+            wanchengbi: 0,
           };
           fetch('http://81.70.101.193:8006/wtarget', {
             method: 'POST',
@@ -1559,6 +1308,11 @@ export default class addplus extends Component {
   render() {
     return (
       <View style={{backgroundColor: '#F5F5F5'}}>
+        <View style={{flexDirection: 'row'}}>
+          <Icon name="left" />
+          <Text>成长目标</Text>
+          <Text></Text>
+        </View>
         <View
           style={{
             height: 150 * s,

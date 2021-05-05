@@ -211,20 +211,21 @@ const App = () => {
                     }
                   />
                   <Scene
-                    key='addplus'
+                    key="addplus"
                     hideTabBar
                     component={addplus}
-                    title='设置目标'
-                    navigationBarStyle={{ backgroundColor: '#A7BCF0' }}
+                    title="成长目标"
+                    // hideNavBar
+                    navigationBarStyle={{backgroundColor: '#A7BCF0'}}
                     renderLeftButton={
-                      <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => Actions.pop()}>
-                        <Icon name='left' style={{ color: 'black' }} />
+                      <TouchableOpacity
+                        style={{marginLeft: 10}}
+                        onPress={() => Actions.pop()}>
+                        <Icon name="left" style={{color: 'black'}} />
                       </TouchableOpacity>
                     }
-                    titleStyle={{ flex: 1, textAlign: 'center' }}
-                    renderRightButton={
-                      <View style={{ marginRight: 10 }}></View>
-                    }
+                    titleStyle={{flex: 1, textAlign: 'center'}}
+                    renderRightButton={<View style={{marginRight: 10}}></View>}
                   />
                   <Scene
                     key='growplan'

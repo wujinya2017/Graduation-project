@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  AsyncStorage,
+  Alert,
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -20,6 +22,8 @@ export default class clock extends Component {
       dakaweek: '',
       dakasatate: '打卡',
       percent: 70,
+      userid: '',
+      targetarr: [],
     };
     setInterval(() => {
       this.formatDateTime();
@@ -59,32 +63,65 @@ export default class clock extends Component {
   daka() {
     console.log(222);
   }
+  componentDidMount() {
+    AsyncStorage.getItem('use_id', (error, result) => {
+      this.setState({userid: JSON.parse(result)});
+      fetch(`http://81.70.101.193:8006/wtarget/${this.state.userid}`)
+        .then((res) => res.json())
+        .then((res) => {
+          var arr = [];
+          for (let i = 0; i < res.data.length; i++) {
+            if (res.data[i].wanchengbi !== 100) {
+              arr.push(res.data[i]);
+            }
+          }
+          this.setState({
+            targetarr: arr,
+          });
+        });
+    });
+  }
+  wdaka = () => {
+    if (this.state.dakasatate === '打卡') {
+      Alert.alert('提示', '打卡成功');
+      this.setState({
+        dakasatate: '已打卡',
+      });
+    } else if (this.state.dakasatate === '已打卡') {
+      Alert.alert('提示', '您已打过卡了哦');
+    }
+  };
   render() {
     return (
       <View>
         <View style={styles.dakaone}>
-          <View style={styles.dakatwo}>
+          <TouchableOpacity style={styles.dakatwo} onPress={this.wdaka}>
             <Text
               style={{fontSize: 35 * s, color: 'white', marginBottom: 15 * s}}>
               {this.state.dakasatate}
             </Text>
             <Text>{this.state.dakatime}</Text>
             <Text>{this.state.dakaweek}</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View>
-          <Text style={{margin: 10 * s, fontSize: 20 * s}}>
+          <Text style={{margin: 10 * s, fontSize: 25 * s}}>
             {this.state.dakaxiatime}
           </Text>
           <View>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text>今日目标完成情况：</Text>
-              <Text>获得积分</Text>
+              <Text>今日目标完成情况</Text>
+              <Text style={{paddingTop: 5 * s}}>获得积分</Text>
             </View>
-            <View style={{alignItems: 'center'}}>
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
               <View
-                style={{flexDirection: 'row', width: 500 * s, margin: 10 * s}}>
+                style={{flexDirection: 'row', width: 400 * s, margin: 10 * s}}>
                 <Progress
                   percent={this.state.percent}
                   style={{height: 7 * s, marginTop: 10 * s}}
@@ -93,9 +130,30 @@ export default class clock extends Component {
                   {this.state.percent}%
                 </Text>
               </View>
+              <Text style={{marginRight: 10 * s, color: '#A7BCF0',fontSize: 23*s,marginTop: -3*s}}>223分</Text>
             </View>
 
-            <Text>今日目标未完成内容：</Text>
+            <Text style={{marginBottom: 10 * s}}>今日目标未完成内容：</Text>
+            <View>
+              {this.state.targetarr.map((item) => (
+                <View style={{alignItems: 'center'}}>
+                  <Text
+                    style={{
+                      fontSize: 22 * s,
+                      width: 600 * s,
+                      borderRadius: 5 * s,
+                      borderColor: '#A7BCF0',
+                      borderWidth: 1 * s,
+                      padding: 5*s,
+                      margin: 5*s,
+                      backgroundColor: '#A7BCF0'
+                    }}
+                    key={item.id}>
+                    {item.windex}. {item.maincontent}
+                  </Text>
+                </View>
+              ))}
+            </View>
           </View>
         </View>
       </View>
