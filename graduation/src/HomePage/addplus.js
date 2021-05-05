@@ -1294,6 +1294,7 @@ export default class addplus extends Component {
             username: res.data[0].use_name,
             maincontent: this.state.textareaval,
             wanchengbi: 0,
+            wjifen: 0,
           };
           fetch('http://81.70.101.193:8006/wtarget', {
             method: 'POST',
